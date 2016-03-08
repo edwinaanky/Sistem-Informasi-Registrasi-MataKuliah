@@ -21,6 +21,7 @@ public class Kelas {
     public Kelas(String namaKelas, int maxMhs, int maxMatkul) {
         this.namaKelas = namaKelas;
         this.maxMhs = maxMhs;
+        this.maxMatkul = maxMatkul;
         matakuliah = new Matakuliah[maxMatkul];
         dosen = new Dosen[maxMatkul];
     }
@@ -34,15 +35,15 @@ public class Kelas {
             System.out.println("Tidak Dapat Menambahkan Matakuliah");
         }
     }
-    
-    public Dosen getDosen(int i){
+
+    public Dosen getDosen(int i) {
         return dosen[i];
     }
-    
-    public Matakuliah getMatakuliah(int i){
+
+    public Matakuliah getMatakuliah(int i) {
         return matakuliah[i];
     }
-    
+
     public String getNamaKelas() {
         return namaKelas;
     }

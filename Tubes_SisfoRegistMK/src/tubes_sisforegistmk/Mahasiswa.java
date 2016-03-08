@@ -13,14 +13,14 @@ public class Mahasiswa extends Orang {
 
     private long nim;
     private Kelas[] kelas = new Kelas[20];
-    private int jumlahsks = 0;
-    private int maxsks;
+    private int jumlahSks = 0;
+    private int maxSks;
     private int jumlahKelas = 0;
 
-    public Mahasiswa(long nim, int maxsks, String name, String jenisKelamin, String alamat, String telepon) {
+    public Mahasiswa(long nim, int maxSks, String name, String jenisKelamin, String alamat, String telepon) {
         super(name, jenisKelamin, alamat, telepon);
         this.nim = nim;
-        this.maxsks = maxsks;
+        this.maxSks = maxSks;
     }
 
     public long getNim() {
@@ -32,36 +32,57 @@ public class Mahasiswa extends Orang {
     }
 
     public int getMaxsks() {
-        return maxsks;
+        return maxSks;
     }
 
-    public void setMaxsks(int maxsks) {
-        this.maxsks = maxsks;
+    public void setMaxsks(int maxSks) {
+        this.maxSks = maxSks;
     }
 
     public void tambahKelas(Kelas k) {
         boolean ada = false;
         int matkul = 0;
-        if (jumlahsks < maxsks) {
+        if (jumlahSks < maxSks) {
             kelas[jumlahKelas] = k;
             jumlahKelas++;
-            jumlahsks = jumlahsks + k.getMatakuliah(matkul).getSks();
+            jumlahSks = jumlahSks + k.getMatakuliah(matkul).getSks();
 
         } else {
-            System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + maxsks + " sks");
+            System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + maxSks + " sks");
         }
     }
 
-    public void kurangKelas(Kelas k, Matakuliah m) {
-        int indeks=21;
+    public void kurangKelas(Kelas k) {
+        int indeks = 21;
+
         for (int i = 0; i < 20; i++) {
-            if(kelas[i]==k){
-                indeks=i;
+            if (kelas[i] == k) {
+                indeks = i;
             }
         }
-        if(indeks!=21){
-            if(indeks==0){
-                
+        if (indeks != 21) {
+            jumlahKelas--;
+            jumlahSks = jumlahSks - k.getMatakuliah(indeks).getSks();
+            for (int j = indeks; j < 20; j++) {
+                kelas[j] = kelas[j + 1];
+            }
+
+        }
+    }
+
+    public Kelas getKelas(int i) {
+        return kelas[i];
+    }
+
+    public void display() {
+        System.out.println("Nama Mahasiswa : " + super.getName());
+        System.out.println("Nim Mahasiswa  : " + nim);
+        System.out.println("Jumlah Sks     : " + jumlahSks);
+        System.out.println("Maksimal Sks   : " + maxSks);
+        System.out.println("Kelas dan Mata kuliah yang diambil ");
+        for(int i=0;i<20;i++){
+            if(kelas[i]!=null){
+                System.out.println(kelas[i].getNamaKelas()+" "+kelas[i].getMatakuliah(i).getNamaMatkul());
             }
         }
     }
