@@ -39,9 +39,17 @@ public class Mahasiswa extends Orang {
         this.maxSks = maxSks;
     }
 
-    public void tambahKelas(Kelas k) {
+    public void tambahKelas(Kelas k, Matakuliah m) {
         boolean ada = false;
         int matkul = 0;
+        for (int i = 0; i < jumlahKelas; i++) {
+            for (int j = 0; j < kelas[i].getMaxMatkul(); j++) {
+                if (kelas[i].getMatakuliah(j) == m) {
+                    matkul = j;
+                }
+
+            }
+        }
         if (jumlahSks < maxSks) {
             kelas[jumlahKelas] = k;
             jumlahKelas++;
@@ -80,9 +88,13 @@ public class Mahasiswa extends Orang {
         System.out.println("Jumlah Sks     : " + jumlahSks);
         System.out.println("Maksimal Sks   : " + maxSks);
         System.out.println("Kelas dan Mata kuliah yang diambil ");
-        for(int i=0;i<20;i++){
-            if(kelas[i]!=null){
-                System.out.println(kelas[i].getNamaKelas()+" "+kelas[i].getMatakuliah(i).getNamaMatkul());
+        for (int i = 0; i < 20; i++) {
+            if (kelas[i] != null) {
+                for (int j = 0; j < kelas[i].getMaxMatkul(); j++) {
+                    if (kelas[i].getMatakuliah(j) != null) {
+                        System.out.println(kelas[i].getNamaKelas() + " " + kelas[i].getMatakuliah(j).getNamaMatkul());
+                    }
+                }
             }
         }
     }

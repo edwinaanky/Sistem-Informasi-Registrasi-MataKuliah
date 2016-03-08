@@ -16,7 +16,8 @@ public class Main {
         Kelas k = new Kelas("IF-38-04", 30, 10);
         k.addMatakuliah(m, d);
         Mahasiswa mhs = new Mahasiswa(1301141264, 24, "Graham Desmon S", "Pria", "PBB C146", "+6282358997212");
-        mhs.tambahKelas(k);
+        mhs.tambahKelas(k,m);
+        
         mhs.display();
     }
 }
