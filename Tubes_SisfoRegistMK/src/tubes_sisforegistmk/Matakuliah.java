@@ -9,13 +9,6 @@ package tubes_sisforegistmk;
  *
  * @author desmoncode
  */
-public class Tubes_SisfoRegistMK {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class Matakuliah {
     
 }
