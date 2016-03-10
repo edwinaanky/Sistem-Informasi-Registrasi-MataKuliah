@@ -92,7 +92,7 @@ public class Main {
         System.out.println();
         mhs1.display();
         System.out.println();        
-        mhs.display();
+        mhs2.display();
 
         
     }
