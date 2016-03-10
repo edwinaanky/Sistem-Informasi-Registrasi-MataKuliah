@@ -12,36 +12,32 @@ package tubes_sisforegistmk;
 public class Kelas {
 
     private String namaKelas;
-    private Matakuliah[] matakuliah;
-    private Dosen[] dosen;
-    private int maxMhs;
-    private int maxMatkul;
-    private int jmlMatkul = 0;
+    private Matakuliah matakuliah;
+    private Dosen dosen;
 
-    public Kelas(String namaKelas, int maxMhs, int maxMatkul) {
+    public Kelas(String namaKelas) {
         this.namaKelas = namaKelas;
-        this.maxMhs = maxMhs;
-        this.maxMatkul = maxMatkul;
-        matakuliah = new Matakuliah[maxMatkul];
-        dosen = new Dosen[maxMatkul];
     }
 
-    public void addMatakuliah(Matakuliah m, Dosen d) {
-        if (jmlMatkul < maxMatkul) {
-            matakuliah[jmlMatkul] = m;
-            dosen[jmlMatkul] = d;
-            jmlMatkul++;
+    public void setMatakuliah(Matakuliah m) {
+        if (m.getJmlMhs() < m.getMaxMhs()) {
+            matakuliah = m;
+            m.setJmlMhs(m.getJmlMhs() + 1);
         } else {
-            System.out.println("Tidak Dapat Menambahkan Matakuliah");
+            System.out.println("Tidak dapat diambil karena penuh");
         }
     }
 
-    public Dosen getDosen(int i) {
-        return dosen[i];
+    public void setDosen(Dosen d) {
+        dosen = d;
     }
 
-    public Matakuliah getMatakuliah(int i) {
-        return matakuliah[i];
+    public Dosen getDosen() {
+        return dosen;
+    }
+
+    public Matakuliah getMatakuliah() {
+        return matakuliah;
     }
 
     public String getNamaKelas() {
@@ -50,22 +46,6 @@ public class Kelas {
 
     public void setNamaKelas(String namaKelas) {
         this.namaKelas = namaKelas;
-    }
-
-    public int getMaxMhs() {
-        return maxMhs;
-    }
-
-    public void setMaxMhs(int maxMhs) {
-        this.maxMhs = maxMhs;
-    }
-
-    public int getMaxMatkul() {
-        return maxMatkul;
-    }
-
-    public void setMaxMatkul(int maxMatkul) {
-        this.maxMatkul = maxMatkul;
     }
 
 }

@@ -39,28 +39,19 @@ public class Mahasiswa extends Orang {
         this.maxSks = maxSks;
     }
 
-    public void tambahKelas(Kelas k, Matakuliah m) {
-        boolean ada = false;
-        int matkul = 0;
-        for (int i = 0; i < jumlahKelas; i++) {
-            for (int j = 0; j < kelas[i].getMaxMatkul(); j++) {
-                if (kelas[i].getMatakuliah(j) == m) {
-                    matkul = j;
-                }
+    public void addKelas(Kelas k) {
 
-            }
-        }
         if (jumlahSks < maxSks) {
             kelas[jumlahKelas] = k;
             jumlahKelas++;
-            jumlahSks = jumlahSks + k.getMatakuliah(matkul).getSks();
+            jumlahSks = jumlahSks + k.getMatakuliah().getSks();
 
         } else {
             System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + maxSks + " sks");
         }
     }
 
-    public void kurangKelas(Kelas k) {
+    public void removeKelas(Kelas k) {
         int indeks = 21;
 
         for (int i = 0; i < 20; i++) {
@@ -69,10 +60,12 @@ public class Mahasiswa extends Orang {
             }
         }
         if (indeks != 21) {
-            jumlahKelas--;
-            jumlahSks = jumlahSks - k.getMatakuliah(indeks).getSks();
-            for (int j = indeks; j < 20; j++) {
+
+            jumlahSks = jumlahSks - k.getMatakuliah().getSks();
+            for (int j = indeks; j < 20 && kelas[j + 1] != null; j++) {
+
                 kelas[j] = kelas[j + 1];
+                kelas[j + 1] = null;
             }
 
         }
@@ -90,12 +83,33 @@ public class Mahasiswa extends Orang {
         System.out.println("Kelas dan Mata kuliah yang diambil ");
         for (int i = 0; i < 20; i++) {
             if (kelas[i] != null) {
-                for (int j = 0; j < kelas[i].getMaxMatkul(); j++) {
-                    if (kelas[i].getMatakuliah(j) != null) {
-                        System.out.println(kelas[i].getNamaKelas() + " " + kelas[i].getMatakuliah(j).getNamaMatkul());
-                    }
-                }
+                System.out.println(kelas[i].getNamaKelas() + " " + kelas[i].getMatakuliah().getNamaMatkul());
             }
         }
     }
+
+    public int getJumlahSks() {
+        return jumlahSks;
+    }
+
+    public void setJumlahSks(int jumlahSks) {
+        this.jumlahSks = jumlahSks;
+    }
+
+    public int getMaxSks() {
+        return maxSks;
+    }
+
+    public void setMaxSks(int maxSks) {
+        this.maxSks = maxSks;
+    }
+
+    public int getJumlahKelas() {
+        return jumlahKelas;
+    }
+
+    public void setJumlahKelas(int jumlahKelas) {
+        this.jumlahKelas = jumlahKelas;
+    }
+
 }

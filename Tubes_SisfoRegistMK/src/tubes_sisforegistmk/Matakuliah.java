@@ -10,14 +10,18 @@ package tubes_sisforegistmk;
  * @author desmoncode
  */
 public class Matakuliah {
+
     private String kode;
     private String namaMatkul;
     private int sks;
+    private int maxMhs;
+    private int jmlMhs = 0;
 
-    public Matakuliah(String kode, String namaMatkul, int sks) {
+    public Matakuliah(String kode, String namaMatkul, int sks, int maxMhs) {
         this.kode = kode;
         this.namaMatkul = namaMatkul;
         this.sks = sks;
+        this.maxMhs = maxMhs;
     }
 
     public String getKode() {
@@ -43,6 +47,21 @@ public class Matakuliah {
     public void setSks(int sks) {
         this.sks = sks;
     }
-    
-    
+
+    public int getMaxMhs() {
+        return maxMhs;
+    }
+
+    public void setMaxMhs(int maxMhs) {
+        this.maxMhs = maxMhs;
+    }
+
+    public int getJmlMhs() {
+        return jmlMhs;
+    }
+
+    public void setJmlMhs(int jmlMhs) {
+        this.jmlMhs = jmlMhs;
+    }
+
 }
