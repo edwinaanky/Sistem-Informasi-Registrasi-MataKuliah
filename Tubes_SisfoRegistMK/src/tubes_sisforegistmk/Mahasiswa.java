@@ -60,10 +60,9 @@ public class Mahasiswa extends Orang {
             }
         }
         if (indeks != 21) {
-
+            jumlahKelas--;
             jumlahSks = jumlahSks - k.getMatakuliah().getSks();
             for (int j = indeks; j < 20 && kelas[j + 1] != null; j++) {
-
                 kelas[j] = kelas[j + 1];
                 kelas[j + 1] = null;
             }
