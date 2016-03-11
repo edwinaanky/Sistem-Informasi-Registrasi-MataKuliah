@@ -22,7 +22,7 @@ public class Kelas {
         this.maxMhs = maxMhs;
     }
 
-    public void setMatakuliah(Matakuliah m) {       
+    public void setMatakuliah(Matakuliah m) {
         matakuliah = m;
     }
 
@@ -45,7 +45,7 @@ public class Kelas {
     public void setNamaKelas(String namaKelas) {
         this.namaKelas = namaKelas;
     }
-    
+
     public int getMaxMhs() {
         return maxMhs;
     }
