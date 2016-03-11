@@ -14,18 +14,16 @@ public class Kelas {
     private String namaKelas;
     private Matakuliah matakuliah;
     private Dosen dosen;
+    private int maxMhs;
+    private int jmlMhs = 0;
 
-    public Kelas(String namaKelas) {
+    public Kelas(String namaKelas, int maxMhs) {
         this.namaKelas = namaKelas;
+        this.maxMhs = maxMhs;
     }
 
-    public void setMatakuliah(Matakuliah m) {
-        if (m.getJmlMhs() < m.getMaxMhs()) {
-            matakuliah = m;
-            m.setJmlMhs(m.getJmlMhs() + 1);
-        } else {
-            System.out.println("Tidak dapat diambil karena penuh");
-        }
+    public void setMatakuliah(Matakuliah m) {       
+        matakuliah = m;
     }
 
     public void setDosen(Dosen d) {
@@ -47,5 +45,20 @@ public class Kelas {
     public void setNamaKelas(String namaKelas) {
         this.namaKelas = namaKelas;
     }
+    
+    public int getMaxMhs() {
+        return maxMhs;
+    }
 
+    public void setMaxMhs(int maxMhs) {
+        this.maxMhs = maxMhs;
+    }
+
+    public int getJmlMhs() {
+        return jmlMhs;
+    }
+
+    public void setJmlMhs(int jmlMhs) {
+        this.jmlMhs = jmlMhs;
+    }
 }
