@@ -16,8 +16,8 @@ public class Main {
         Matakuliah m = new Matakuliah("PBO", "Pemrograman Berorientasi Objek", 3);
         Matakuliah m1 = new Matakuliah("DAP", "Dasar Algoritma dan Pemrograman", 3);
         Matakuliah m2 = new Matakuliah("ASD", "Algoritma dan Struktur Data", 3);
-        Dosen d = new Dosen(1, "ICM", "Kurniawan Nur Ramadhani, ST., MT.", "Pria", "abc", "+6282222");
-        Dosen d1 = new Dosen(2, "ICM", "DODY QORI UTAMA, S.T., M.T.", "Pria", "abcd", "+62822223");
+        Dosen d = new Dosen(1, "ICM","Dosen tetap", "Kurniawan Nur Ramadhani, ST., MT.", "Pria", "abc", "+6282222");
+        Dosen d1 = new Dosen(2, "ICM","Dosen tetap", "DODY QORI UTAMA, S.T., M.T.", "Pria", "abcd", "+62822223");
         Kelas k = new Kelas("IF-38-04",30);
         k.setMatakuliah(m);
         k.setDosen(d);
@@ -79,10 +79,12 @@ public class Main {
         System.out.println("Nama Dosen : "+d.getName());
         System.out.println("NIK Dosen  : "+d.getNik());
         System.out.println("KK         : "+d.getKk());
+        System.out.println("Status     : "+d.getStatus());
         System.out.println();
         System.out.println("Nama Dosen : "+d1.getName());
         System.out.println("NIK Dosen  : "+d1.getNik());
         System.out.println("KK         : "+d1.getKk());
+        System.out.println("Status     : "+d1.getStatus());
         System.out.println();
         System.out.println();
         System.out.println("DATA MAHASISWA");
