@@ -13,11 +13,13 @@ public class Dosen extends Orang {
 
     private long nik;
     private String kk;
+    private String status;
 
-    public Dosen(long nik, String kk, String name, String jenisKelamin, String alamat, String telepon) {
+    public Dosen(long nik, String kk, String status, String name, String jenisKelamin, String alamat, String telepon) {
         super(name, jenisKelamin, alamat, telepon);
         this.nik = nik;
         this.kk = kk;
+        this.status = status;
     }
 
     public long getNik() {
@@ -36,4 +38,13 @@ public class Dosen extends Orang {
         this.kk = kk;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 }
