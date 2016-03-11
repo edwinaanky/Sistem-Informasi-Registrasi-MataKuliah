@@ -40,18 +40,18 @@ public class Mahasiswa extends Orang {
     }
 
     public void addKelas(Kelas k) {
-        int jumlah=0;
+        int jumlah = 0;
         if (jumlahSks < maxSks) {
-            if(k.getJmlMhs()<k.getMaxMhs()){
-                jumlah=k.getJmlMhs();
+            if (k.getJmlMhs() < k.getMaxMhs()) {
+                jumlah = k.getJmlMhs();
                 jumlah++;
                 k.setJmlMhs(jumlah);
                 kelas[jumlahKelas] = k;
                 jumlahKelas++;
                 jumlahSks = jumlahSks + k.getMatakuliah().getSks();
-            }
-            else
+            } else {
                 System.out.println("Tidak dapat mengambil kelas karena penuh");
+            }
 
         } else {
             System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + maxSks + " sks");
@@ -68,25 +68,23 @@ public class Mahasiswa extends Orang {
         }
         if (indeks != 21) {
             jumlahKelas--;
-            jumlah=k.getJmlMhs();
+            jumlah = k.getJmlMhs();
             jumlah--;
             k.setJmlMhs(jumlah);
             jumlahSks = jumlahSks - k.getMatakuliah().getSks();
-            if(indeks==0 && kelas[indeks+1]==null){
-                    kelas[indeks]=null;
-                }
-            else{
+            if (indeks == 0 && kelas[indeks + 1] == null) {
+                kelas[indeks] = null;
+            } else {
                 for (int j = indeks; j < 20 && kelas[j + 1] != null; j++) {
 
-
-                        kelas[j] = kelas[j + 1];
-                        kelas[j + 1] = null;
+                    kelas[j] = kelas[j + 1];
+                    kelas[j + 1] = null;
 
                 }
             }
-        }
-        else
+        } else {
             System.out.println("Kelas tidak ditemukan");
+        }
     }
 
     public Kelas getKelas(int i) {
@@ -94,7 +92,7 @@ public class Mahasiswa extends Orang {
     }
 
     public void display() {
-        int belum=0;
+        int belum = 0;
         System.out.println("Nama Mahasiswa : " + super.getName());
         System.out.println("Nim Mahasiswa  : " + nim);
         System.out.println("Jenis Kelamin  : " + super.getJenisKelamin());
@@ -107,7 +105,7 @@ public class Mahasiswa extends Orang {
                 System.out.println(kelas[i].getNamaKelas() + " " + kelas[i].getMatakuliah().getNamaMatkul());
             }
         }
-        if(belum==0){
+        if (belum == 0) {
             System.out.println("Belum ada Kelas yang diambil");
         }
     }
