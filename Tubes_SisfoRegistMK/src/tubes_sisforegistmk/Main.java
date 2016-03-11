@@ -91,7 +91,7 @@ public class Main {
         mhs1.display();
         System.out.println();        
         mhs.display();
-        System.out.println();
+
         
     }
 }
