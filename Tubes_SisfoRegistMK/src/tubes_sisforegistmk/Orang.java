@@ -10,17 +10,22 @@ package tubes_sisforegistmk;
  * @author desmoncode
  */
 public abstract class Orang {
-    private String name;
+  private String name;
     private String jenisKelamin;
     private String alamat;
     private String telepon;
-    
-    public Orang(String name, String jenisKelamin, String alamat, String telepon){
+
+    public Orang(String name, String jenisKelamin, String alamat, String telepon) {
         this.name = name;
         this.jenisKelamin = jenisKelamin;
         this.alamat = alamat;
         this.telepon = telepon;
-    };
+    }
+
+    public Orang() {
+    }
+
+    
     
     public String getName() {
         return name;

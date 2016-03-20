@@ -5,22 +5,66 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.Serializable;
+
 /**
  *
  * @author desmoncode
  */
-public class Mahasiswa extends Orang {
+public class Mahasiswa extends Orang implements Serializable {
 
     private long nim;
     private Kelas[] kelas = new Kelas[20];
     private int jumlahSks = 0;
     private int maxSks;
     private int jumlahKelas = 0;
+    private String usernameMhs;
+    private String passwordMhs;
+    private int semester;
+    private String jurusan;
 
-    public Mahasiswa(long nim, int maxSks, String name, String jenisKelamin, String alamat, String telepon) {
+    public Mahasiswa(long nim, int maxSks, String usernameMhs, String passwordMhs, String name, String jenisKelamin, String alamat, String telepon) {
         super(name, jenisKelamin, alamat, telepon);
         this.nim = nim;
         this.maxSks = maxSks;
+        this.usernameMhs = usernameMhs;
+        this.passwordMhs = passwordMhs;
+    }
+
+    public Mahasiswa() {
+        super();
+    }
+
+    public Kelas[] getKelas() {
+        return kelas;
+    }
+
+    public void setKelas(Kelas[] kelas) {
+        this.kelas = kelas;
+    }
+
+    public String getUsernameMhs() {
+        return usernameMhs;
+    }
+
+    public void setUsernameMhs(String usernameMhs) {
+        this.usernameMhs = usernameMhs;
+    }
+
+    public String getPasswordMhs() {
+        return passwordMhs;
+    }
+
+    public void setPasswordMhs(String passwordMhs) {
+        this.passwordMhs = passwordMhs;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
     public long getNim() {
@@ -74,11 +118,9 @@ public class Mahasiswa extends Orang {
             jumlahSks = jumlahSks - k.getMatakuliah().getSks();
             if (indeks == 0 && kelas[indeks + 1] == null) {
                 kelas[indeks] = null;
-            } 
-            else if(kelas[indeks + 1] == null){
+            } else if (kelas[indeks + 1] == null) {
                 kelas[indeks] = null;
-            }
-            else {
+            } else {
                 for (int j = indeks; j < 20 && kelas[j + 1] != null; j++) {
 
                     kelas[j] = kelas[j + 1];
@@ -93,6 +135,10 @@ public class Mahasiswa extends Orang {
 
     public Kelas getKelas(int i) {
         return kelas[i];
+    }
+
+    public Kelas[] getAllKelas() {
+        return kelas;
     }
 
     public void display() {
@@ -137,5 +183,4 @@ public class Mahasiswa extends Orang {
     public void setJumlahKelas(int jumlahKelas) {
         this.jumlahKelas = jumlahKelas;
     }
-
 }

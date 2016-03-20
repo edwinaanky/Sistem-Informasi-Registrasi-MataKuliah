@@ -5,13 +5,14 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.Serializable;
+
 /**
  *
  * @author desmoncode
  */
-public class Dosen extends Orang {
-
-    private long nik;
+public class Dosen extends Orang implements Serializable{
+private long nik;
     private String kk;
     private String status;
 
@@ -21,6 +22,12 @@ public class Dosen extends Orang {
         this.kk = kk;
         this.status = status;
     }
+
+    public Dosen() {
+        super();
+    }
+    
+    
 
     public long getNik() {
         return nik;
@@ -45,6 +52,4 @@ public class Dosen extends Orang {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
 }
