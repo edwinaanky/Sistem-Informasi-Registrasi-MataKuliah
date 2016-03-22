@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author desmoncode
  */
 public class Dosen extends Orang implements Serializable{
-private long nik;
+    private long nik;
     private String kk;
     private String status;
 

@@ -5,11 +5,13 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.Serializable;
+
 /**
  *
  * @author desmoncode
  */
-public class Matakuliah {
+public class Matakuliah implements Serializable{
 
     private String kode;
     private String namaMatkul;

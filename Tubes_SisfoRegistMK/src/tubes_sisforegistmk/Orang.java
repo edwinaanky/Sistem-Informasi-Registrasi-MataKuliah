@@ -5,11 +5,13 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.Serializable;
+
 /**
  *
  * @author desmoncode
  */
-public abstract class Orang {
+public abstract class Orang implements Serializable{
   private String name;
     private String jenisKelamin;
     private String alamat;
