@@ -5,9 +5,12 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -26,11 +29,6 @@ public class Aplikasi {
     private ArrayList<Kelas> daftarKelas = new ArrayList<Kelas>();
     private ArrayList<Matakuliah> daftarMatakuliah = new ArrayList<Matakuliah>();
 
-//    public void saveFile(ArrayList list, String filename){
-//        for (Object list1 : list) {
-//            list1.
-//        }
-//    }
     public void addDosen(Dosen d) {
         daftarDosen.add(d);
     }
@@ -84,7 +82,24 @@ public class Aplikasi {
     }
 
     public void menuSatuMhs(Mahasiswa m, Kelas k) {
-        m.addKelas(k);
+
+        int jumlah = 0;
+        int jml = 0;
+        if (m.getJumlahSks() < m.getMaxSks()) {
+            if (k.getJmlMhs() < k.getMaxMhs()) {
+                jumlah = k.getJmlMhs();
+                jumlah++;
+                m.addKelas(k);
+                jml = m.getJumlahKelas();
+                jml = m.getJumlahSks() + k.getMatakuliah().getSks();
+                m.setJumlahSks(jml);
+            } else {
+                System.out.println("Tidak dapat mengambil kelas karena penuh");
+            }
+
+        } else {
+            System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + m.getMaxSks() + " sks");
+        }
     }
 
     public void menuEmpatAdmin(Kelas k, Dosen d) {
@@ -92,11 +107,10 @@ public class Aplikasi {
     }
 
     public void menuDuaMhs(Mahasiswa m, Kelas k) {
-        String namaKelas = k.getNamaKelas();
         m.removeKelas(k);
     }
 
-    public Kelas[] menuTigaMhs(Mahasiswa m) {
+    public ArrayList<Kelas> menuTigaMhs(Mahasiswa m) {
         return m.getAllKelas();
     }
 
@@ -104,6 +118,7 @@ public class Aplikasi {
         Mahasiswa mhs = new Mahasiswa(1301141264, 24, "graham", "graham", "Graham Desmon S", "Pria", "PBB", "080888");
         Mahasiswa mhs1 = new Mahasiswa(1301141263, 24, "desmon", "desmon", "Desmon Simanjuntak", "Pria", "PBB", "080888");
         daftarMahasiswa.add(mhs);
+
         daftarMahasiswa.add(mhs1);
 
         Dosen d = new Dosen(1, "ICM", "Dosen tetap", "Kurniawan Nur Ramadhani, ST., MT.", "Pria", "abc", "+6282222");
@@ -120,14 +135,11 @@ public class Aplikasi {
                 ObjectOutputStream obj2 = new ObjectOutputStream(fos2);
                 FileOutputStream fos3 = new FileOutputStream("admin.txt");
                 ObjectOutputStream obj3 = new ObjectOutputStream(fos3);) {
-//            for (Mahasiswa list1 : daftarMahasiswa) {
+
             obj1.writeObject(daftarMahasiswa);
-//            }
-//            for (Dosen list2 : daftarDosen) {
+
             obj2.writeObject(daftarDosen);
-//            }
-//            obj1.writeObject(daftarMahasiswa);
-//            obj2.writeObject(daftarDosen);
+
             obj3.writeObject(admin);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -148,10 +160,12 @@ public class Aplikasi {
             System.out.println("11. Tambah Matakuliah");
             System.out.println("12. Hapus Matakuliah");
             System.out.println("13. Cari Matakuliah");
-            System.out.println("14. Tambah Kelas");
-            System.out.println("15. Hapus Kelas");
-            System.out.println("16. Cari Kelas");
-            System.out.println("17. Atur Kelas");
+            System.out.println("14. Lihat Daftar Matakuliah");
+            System.out.println("15. Tambah Kelas");
+            System.out.println("16. Hapus Kelas");
+            System.out.println("17. Cari Kelas");
+            System.out.println("18. Atur Kelas");
+            System.out.println("19. Lihat Daftar Kelas");
             System.out.println("0. Log Out");
             System.out.print("Pilih Menu : ");
         } else if (userAktif instanceof Mahasiswa) {
@@ -165,7 +179,7 @@ public class Aplikasi {
 
     }
 
-    public void mainMenu() {
+    public void mainMenu() throws IOException {
 
         File file1 = new File("mahasiswa.txt");
         File file2 = new File("dosen.txt");
@@ -180,10 +194,12 @@ public class Aplikasi {
 
         int pilihan1 = 1;
         int pilihan2 = 1;
+        int pilihan3 = 1;
         while (pilihan1 != 0) {
             Scanner angka = new Scanner(System.in);
             Scanner huruf = new Scanner(System.in);
-
+            InputStreamReader isr = new InputStreamReader(System.in);
+            BufferedReader br = new BufferedReader(isr);
             menu();
 
             try {
@@ -227,10 +243,9 @@ public class Aplikasi {
                                             System.out.print("Masukkan Kode Mata Kuliah : ");
                                             kode = huruf.next();
                                             System.out.print("Masukkan Nama Mata Kuliah : ");
-                                            namaMatkul = huruf.next();
+                                            namaMatkul = br.readLine();
                                             System.out.print("Masukkan Jumlah SKS : ");
                                             sks = angka.nextInt();
-                                            System.out.println("Kode " + kode + " nama " + namaMatkul + " sks " + sks);
                                             Matakuliah mk = new Matakuliah(kode, namaMatkul, sks);
                                             menuDuaAdmin(mk);
                                             System.out.println("Berhasil Ditambahkan");
@@ -248,7 +263,7 @@ public class Aplikasi {
                                             }
                                             System.out.println();
                                             if (j != 0) {
-                                                System.out.print("Masukkan Nomor yang dihapus : ");
+                                                System.out.print("Masukkan Nomor matakuliah yang ingin dihapus : ");
                                                 nomor = angka.nextInt();
                                                 deleteMatakuliah(nomor);
                                             } else {
@@ -258,39 +273,101 @@ public class Aplikasi {
 
                                         case 13:
                                             boolean ketemu = false;
-                                            System.out.print("Masukkan Kode Matakuliah yang ingin dihapus : ");
-                                            kode = huruf.next();
+                                            i = 0;
+                                            j = 0;
                                             for (Matakuliah list1 : daftarMatakuliah) {
-                                                if (list1.getKode() == kode) {
-                                                    System.out.println("Kode Matakuliah : " + list1.getKode());
-                                                    System.out.println("Nama Matakuliah : " + list1.getNamaMatkul());
-                                                    System.out.println("Jumlah SKS : " + list1.getSks());
-                                                    ketemu = true;
-                                                }
+                                                System.out.print(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
+
+                                                i++;
+                                                j = 1;
                                             }
-                                            if (ketemu == false) {
-                                                System.out.println("Tidak ditemukan matakuliah dengan kode " + kode);
+                                            System.out.println();
+                                            if (j != 0) {
+                                                System.out.print("Masukkan Kode Matakuliah yang ingin dicari : ");
+                                                kode = huruf.next();
+                                                for (Matakuliah list1 : daftarMatakuliah) {
+                                                    if (list1.getKode() == kode) {
+                                                        System.out.println("Kode Matakuliah : " + list1.getKode());
+                                                        System.out.println("Nama Matakuliah : " + list1.getNamaMatkul());
+                                                        System.out.println("Jumlah SKS : " + list1.getSks());
+                                                        ketemu = true;
+                                                    }
+                                                }
+                                                if (ketemu == false) {
+                                                    System.out.println("Tidak ditemukan matakuliah dengan kode " + kode);
+                                                }
+                                            } else {
+                                                System.out.println("Kosong");
+                                            }
+
+                                            break;
+                                        case 14:
+                                            System.out.println("Daftar MataKuliah");
+                                            i = 0;
+                                            j = 0;
+                                            for (Matakuliah list1 : daftarMatakuliah) {
+                                                System.out.println(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
+                                                i++;
+                                                j = 1;
+                                            }
+                                            if (j == 0) {
+                                                System.out.println("Kosong");
                                             }
                                             break;
-
-                                        case 14:
+                                        case 15:
+                                            Matakuliah mat;
+                                            Dosen dos;
                                             System.out.print("Masukkan Nama Kelas : ");
-                                            namaKelas = huruf.next();
-                                            System.out.println("Masukkan Jumlah Maksimal Mahasiswa : ");
+                                            namaKelas = br.readLine();
+                                            System.out.print("Masukkan Jumlah Maksimal Mahasiswa : ");
                                             maxMhs = angka.nextInt();
                                             Kelas k = new Kelas(namaKelas, maxMhs);
                                             menuSatuAdmin(k);
                                             System.out.println("Berhasil ditambahkan, silahkan mengeset kelas dan matakuliah terlebih dahulu");
-                                            System.out.println("Apakah anda ingin mengeset kelas dan matakuliah ? (Y/N)");
+                                            System.out.print("Apakah anda ingin mengeset kelas dan matakuliah ? (Y/N) : ");
                                             kode = huruf.next();
-                                            if ((kode == "Y") || (kode == "y")) {
 
+                                            if ("Y".equals(kode) || "y".equals(kode)) {
+                                                if (daftarMatakuliah.isEmpty() || daftarDosen.isEmpty()) {
+                                                    System.out.println();
+                                                    System.out.println("Daftar Matakuliah atau Dosen masih kosong, Silahakan melakukan input terlebih dahulu");
+                                                } else {
+                                                    System.out.println("Daftar MataKuliah");
+                                                    i = 0;
+                                                    j = 0;
+                                                    for (Matakuliah list1 : daftarMatakuliah) {
+                                                        System.out.println(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
+
+                                                        i++;
+                                                        j = 1;
+                                                    }
+                                                    System.out.println();
+                                                    System.out.println("Daftar Dosen");
+                                                    i = 0;
+                                                    j = 0;
+                                                    for (Dosen list1 : daftarDosen) {
+                                                        System.out.println(i + " " + list1.getNik() + " " + list1.getName());
+
+                                                        i++;
+                                                        j = 1;
+                                                    }
+                                                    System.out.println();
+                                                    System.out.print("Nomor Matakuliah yang ingin di set pada kelas : ");
+                                                    nomor = angka.nextInt();
+                                                    mat = getMatakuliah(nomor);
+                                                    menuTigaAdmin(k, mat);
+                                                    System.out.print("Nomor Dosen yang ingin di set pada kelas : ");
+                                                    nomor = angka.nextInt();
+                                                    dos = getDosen(nomor);
+                                                    menuEmpatAdmin(k, dos);
+                                                }
                                             } else {
                                                 System.out.println("silahkan melakukan set kelas dan matakuliah pada menu ke 17");
                                             }
+
                                             break;
 
-                                        case 15:
+                                        case 16:
                                             System.out.println("Daftar Kelas");
                                             int l = 0;
                                             int m = 0;
@@ -302,7 +379,7 @@ public class Aplikasi {
                                             }
                                             System.out.println();
                                             if (m != 0) {
-                                                System.out.print("Masukkan Nomor yang dihapus : ");
+                                                System.out.print("Masukkan Nomor kela yang ingin dihapus : ");
                                                 nomor = angka.nextInt();
                                                 deleteKelas(nomor);
                                             } else {
@@ -310,7 +387,7 @@ public class Aplikasi {
                                             }
                                             break;
 
-                                        case 16:
+                                        case 17:
                                             boolean ada = false;
                                             System.out.print("Masukkan Nama Kelas : ");
                                             namaKelas = huruf.next();
@@ -329,20 +406,19 @@ public class Aplikasi {
                                             }
                                             break;
 
-                                        case 17:
+                                        case 18:
                                             Kelas kel;
-                                            Matakuliah mat;
-                                            Dosen dos;
+
                                             System.out.println("Daftar Kelas");
                                             l = 0;
                                             m = 0;
                                             for (Kelas list1 : daftarKelas) {
                                                 if ((list1.getMatakuliah() != null) && (list1.getDosen() != null)) {
-                                                    System.out.print(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getNik());
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getNik());
                                                 } else if (list1.getMatakuliah() == null && list1.getDosen() != null) {
-                                                    System.out.print(l + " " + list1.getNamaKelas() + " (Belum ada matkul)" + " " + list1.getDosen().getNik());
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " (Belum ada matkul)" + " " + list1.getDosen().getNik());
                                                 } else if (list1.getDosen() == null && list1.getMatakuliah() != null) {
-                                                    System.out.print(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " (Belum ada dosen)");
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " (Belum ada dosen)");
                                                 } else {
                                                     System.out.println(l + " " + list1.getNamaKelas() + " (Beluma ada matkul)" + " (Belum ada dosen)");
                                                 }
@@ -357,7 +433,7 @@ public class Aplikasi {
                                             i = 0;
                                             j = 0;
                                             for (Matakuliah list1 : daftarMatakuliah) {
-                                                System.out.print(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
+                                                System.out.println(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
 
                                                 i++;
                                                 j = 1;
@@ -366,19 +442,41 @@ public class Aplikasi {
                                             i = 0;
                                             j = 0;
                                             for (Dosen list1 : daftarDosen) {
-                                                System.out.print(i + " " + list1.getNik() + " " + list1.getName());
+                                                System.out.println(i + " " + list1.getNik() + " " + list1.getName());
 
                                                 i++;
                                                 j = 1;
                                             }
-                                            System.out.println("Nomor Matakuliah yang ingin di set pada kelas : ");
+                                            System.out.println();
+                                            System.out.print("Nomor Matakuliah yang ingin di set pada kelas : ");
                                             nomor = angka.nextInt();
                                             mat = getMatakuliah(nomor);
                                             menuTigaAdmin(kel, mat);
-                                            System.out.println("Nomor Dosen yang ingin di set pada kelas : ");
+                                            System.out.print("Nomor Dosen yang ingin di set pada kelas : ");
                                             nomor = angka.nextInt();
                                             dos = getDosen(nomor);
                                             menuEmpatAdmin(kel, dos);
+                                            break;
+
+                                        case 19:
+                                            l = 0;
+                                            m = 0;
+                                            for (Kelas list1 : daftarKelas) {
+                                                if ((list1.getMatakuliah() != null) && (list1.getDosen() != null)) {
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getNik());
+                                                } else if (list1.getMatakuliah() == null && list1.getDosen() != null) {
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " (Belum ada matkul)" + " " + list1.getDosen().getNik());
+                                                } else if (list1.getDosen() == null && list1.getMatakuliah() != null) {
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " (Belum ada dosen)");
+                                                } else {
+                                                    System.out.println(l + " " + list1.getNamaKelas() + " (Beluma ada matkul)" + " (Belum ada dosen)");
+                                                }
+                                                l++;
+                                                m = 1;
+                                            }
+                                            if (m == 0) {
+                                                System.out.println("Kosong");
+                                            }
                                             break;
 
                                         case 0:
@@ -401,6 +499,10 @@ public class Aplikasi {
                         break;
 
                     case 2:
+                        boolean ada = false;
+                        Mahasiswa mah = null;
+                        int i = -1;
+                        ArrayList<Mahasiswa> daftarMahasiswa = null;
                         try (FileInputStream fis = new FileInputStream(file1);
                                 ObjectInputStream ois = new ObjectInputStream(fis);) {
 
@@ -414,11 +516,107 @@ public class Aplikasi {
                         System.out.print("Masukkan Password Mahasiswa : ");
                         password = huruf.next();
 
+                        for (Mahasiswa list4 : daftarMahasiswa) {
+                            if ((list4.getUsernameMhs().equals(username)) && (list4.getPasswordMhs().equals(password))) {
+                                ada = true;
+                                i++;
+                            }
+                        }
+                        mah = getMahasiswa(i);
+                        if (ada == true) {
+                            System.out.println("Selamat Datang " + mah.getName());
+                            userAktif = mah;
+
+                            while (pilihan3 != 0) {
+                                menu();
+                                try {
+                                    int menu3 = angka.nextInt();
+                                    String kode;
+                                    String namaMatkul;
+                                    int sks;
+                                    int nomor;
+                                    String namaKelas;
+                                    int maxMhs;
+                                    switch (menu3) {
+                                        case 21:
+                                            System.out.println("Dafar Kelas");
+                                            int l = 0;
+                                            int m = 0;
+                                            for (Kelas list1 : daftarKelas) {
+                                                System.out.print(l + ". " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getName());
+
+                                                l++;
+                                                m = 1;
+                                            }
+                                            System.out.println();
+                                            if (m != 0) {
+                                                System.out.print("Masukkan Nomor Kelas yang ditambahkan : ");
+                                                nomor = angka.nextInt();
+                                                menuSatuMhs(mah, getKelas(nomor));
+                                            } else {
+                                                System.out.println("Kosong");
+                                            }
+                                            break;
+
+                                        case 22:
+                                            System.out.println("Dafar Kelas");
+                                            l = 0;
+                                            m = 0;
+                                            for (Kelas list1 : menuTigaMhs(mah)) {
+                                                System.out.print(l + ". " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getName());
+
+                                                l++;
+                                                m = 1;
+                                            }
+                                            System.out.println();
+                                            if (m != 0) {
+                                                System.out.print("Masukkan Nomor Kelas yang ingin dihapus : ");
+                                                nomor = angka.nextInt();
+                                                menuDuaMhs(mah, menuTigaMhs(mah).get(i));
+                                            } else {
+                                                System.out.println("Kosong");
+                                            }
+                                            break;
+
+                                        case 23:
+                                            System.out.println("Dafar Kelas");
+                                            l = 0;
+                                            m = 0;
+                                            for (Kelas list1 : menuTigaMhs(mah)) {
+                                                System.out.print(l + ". " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getName());
+
+                                                l++;
+                                                m = 1;
+                                            }
+                                            if (m == 0) {
+                                                System.out.println("Kosong");
+                                            }
+                                            break;
+
+                                        case 0:
+                                            System.out.println("TERIMA KASIH");
+                                            userAktif = null;
+                                            pilihan3 = 0;
+
+                                            break;
+
+                                        default:
+                                            System.out.println("Menu tidak ada");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Menu Salah");
+                                }
+                            }
+                        } else {
+                            System.out.println("SALAH");
+                        }
+
                         break;
 
                     case 0:
                         System.out.println("TERIMA KASIH");
                         pilihan1 = 0;
+                        userAktif = null;
                         break;
 
                     default:
