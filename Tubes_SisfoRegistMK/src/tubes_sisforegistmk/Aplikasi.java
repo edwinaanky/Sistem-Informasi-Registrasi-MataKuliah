@@ -664,6 +664,7 @@ public class Aplikasi {
                         System.out.println("TERIMA KASIH");
                         pilihan1 = 0;
                         userAktif = null;
+                        username = br.readLine();
                         break;
 
                     default:
