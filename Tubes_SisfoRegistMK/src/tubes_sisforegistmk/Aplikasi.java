@@ -37,11 +37,11 @@ public class Aplikasi {
         daftarMahasiswa.add(m);
     }
 
-    public void menuSatuAdmin(Kelas k) {
+    public void addKelas(Kelas k) {
         daftarKelas.add(k);
     }
 
-    public void menuDuaAdmin(Matakuliah mk) {
+    public void addMatakuliah(Matakuliah mk) {
         daftarMatakuliah.add(mk);
     }
 
@@ -77,8 +77,54 @@ public class Aplikasi {
         daftarMatakuliah.remove(id);
     }
 
-    public void menuTigaAdmin(Kelas k, Matakuliah mk) {
+    public void menuSatuAdmin(Matakuliah mk) {
+        addMatakuliah(mk);
+    }
+
+    public void menuDuaAdmin(int id) {
+        deleteMatakuliah(id);
+    }
+
+    public Matakuliah menuTigaAdmin(String kode) {
+        for (Matakuliah list1 : daftarMatakuliah) {
+            if (list1.getKode().equals(kode)) {
+                return list1;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Matakuliah> menuEmpatAdmin() {
+        return daftarMatakuliah;
+    }
+
+    public void menuLimaAdmin(Kelas k) {
+        addKelas(k);
+    }
+
+    public void menuEnamAdmin(int id) {
+        deleteKelas(id);
+    }
+
+    public Kelas menuTujuhAdmin(String namaKelas, String namaMatkul) {
+        for (Kelas list1 : daftarKelas) {
+            if ((list1.getNamaKelas().equals(namaKelas)) && (list1.getMatakuliah().getNamaMatkul().equals(namaMatkul))) {
+                return list1;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Kelas> menuDelapanAdmin() {
+        return daftarKelas;
+    }
+
+    public void menuSembilanAdmin(Kelas k, Matakuliah mk) {
         k.setMatakuliah(mk);
+    }
+
+    public void menuSepuluhAdmin(Kelas k, Dosen d) {
+        k.setDosen(d);
     }
 
     public void menuSatuMhs(Mahasiswa m, Kelas k) {
@@ -100,10 +146,6 @@ public class Aplikasi {
         } else {
             System.out.println("Tidak dapat menambahkan kelas karena jumlah sks tidak dapat melebihi " + m.getMaxSks() + " sks");
         }
-    }
-
-    public void menuEmpatAdmin(Kelas k, Dosen d) {
-        k.setDosen(d);
     }
 
     public void menuDuaMhs(Mahasiswa m, Kelas k) {
@@ -193,8 +235,7 @@ public class Aplikasi {
         }
 
         int pilihan1 = 1;
-        int pilihan2 = 1;
-        int pilihan3 = 1;
+
         while (pilihan1 != 0) {
             Scanner angka = new Scanner(System.in);
             Scanner huruf = new Scanner(System.in);
@@ -203,18 +244,19 @@ public class Aplikasi {
             menu();
 
             try {
+                int pilihan2 = 1;
+                int pilihan3 = 1;
                 int menu1 = angka.nextInt();
                 String username;
                 String password;
                 switch (menu1) {
                     case 1:
-
+                        Admin admin = null;
                         System.out.print("Masukkan Username Admin : ");
                         username = huruf.next();
 
                         System.out.print("Masukkan Password Admin : ");
                         password = huruf.next();
-                        Admin admin = null;
 
                         try (FileInputStream fis = new FileInputStream(file3);
                                 ObjectInputStream ois = new ObjectInputStream(fis);) {
@@ -247,7 +289,7 @@ public class Aplikasi {
                                             System.out.print("Masukkan Jumlah SKS : ");
                                             sks = angka.nextInt();
                                             Matakuliah mk = new Matakuliah(kode, namaMatkul, sks);
-                                            menuDuaAdmin(mk);
+                                            menuSatuAdmin(mk);
                                             System.out.print("Berhasil Ditambahkan");
                                             namaMatkul = br.readLine();
                                             break;
@@ -266,8 +308,12 @@ public class Aplikasi {
                                             if (j != 0) {
                                                 System.out.print("Masukkan Nomor matakuliah yang ingin dihapus : ");
                                                 nomor = angka.nextInt();
-                                                deleteMatakuliah(nomor);
-                                                System.out.print("Berhasil Di hapus");
+                                                if ((nomor + 1) > daftarMatakuliah.size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                } else {
+                                                    menuDuaAdmin(nomor);
+                                                    System.out.print("Berhasil Di hapus");
+                                                }
                                                 namaMatkul = br.readLine();
                                             } else {
                                                 System.out.println("Kosong");
@@ -280,7 +326,6 @@ public class Aplikasi {
                                             i = 0;
                                             j = 0;
                                             for (Matakuliah list1 : daftarMatakuliah) {
-                                                System.out.print(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
 
                                                 i++;
                                                 j = 1;
@@ -289,16 +334,12 @@ public class Aplikasi {
                                             if (j != 0) {
                                                 System.out.print("Masukkan Kode Matakuliah yang ingin dicari : ");
                                                 kode = huruf.next();
-                                                for (Matakuliah list1 : daftarMatakuliah) {
-                                                    if (list1.getKode() == kode) {
-                                                        System.out.println("Kode Matakuliah : " + list1.getKode());
-                                                        System.out.println("Nama Matakuliah : " + list1.getNamaMatkul());
-                                                        System.out.println("Jumlah SKS : " + list1.getSks());
-
-                                                        ketemu = true;
-                                                    }
-                                                }
-                                                if (ketemu == false) {
+                                                if (menuTigaAdmin(kode) != null) {
+                                                    System.out.println("Kode Matakuliah : " + menuTigaAdmin(kode).getKode());
+                                                    System.out.println("Nama Matakuliah : " + menuTigaAdmin(kode).getNamaMatkul());
+                                                    System.out.println("Jumlah SKS : " + menuTigaAdmin(kode).getSks());
+                                                    namaMatkul = br.readLine();
+                                                } else {
                                                     System.out.println("Tidak ditemukan matakuliah dengan kode " + kode);
                                                     namaMatkul = br.readLine();
                                                 }
@@ -306,13 +347,13 @@ public class Aplikasi {
                                                 System.out.print("Kosong");
                                                 namaMatkul = br.readLine();
                                             }
-                                            namaMatkul = br.readLine();
+
                                             break;
                                         case 14:
                                             System.out.println("Daftar MataKuliah");
                                             i = 0;
                                             j = 0;
-                                            for (Matakuliah list1 : daftarMatakuliah) {
+                                            for (Matakuliah list1 : menuEmpatAdmin()) {
                                                 System.out.println(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
                                                 i++;
                                                 j = 1;
@@ -331,7 +372,7 @@ public class Aplikasi {
                                             System.out.print("Masukkan Jumlah Maksimal Mahasiswa : ");
                                             maxMhs = angka.nextInt();
                                             Kelas k = new Kelas(namaKelas, maxMhs);
-                                            menuSatuAdmin(k);
+                                            menuLimaAdmin(k);
                                             System.out.println("Berhasil ditambahkan, silahkan mengeset kelas dan matakuliah terlebih dahulu");
                                             System.out.print("Apakah anda ingin mengeset kelas dan matakuliah ? (Y/N) : ");
                                             kode = huruf.next();
@@ -364,12 +405,25 @@ public class Aplikasi {
                                                     System.out.println();
                                                     System.out.print("Nomor Matakuliah yang ingin di set pada kelas : ");
                                                     nomor = angka.nextInt();
-                                                    mat = getMatakuliah(nomor);
-                                                    menuTigaAdmin(k, mat);
+                                                    if ((nomor + 1) > daftarMatakuliah.size()) {
+                                                        System.out.println("Tidak ada nomor");
+                                                        namaMatkul = br.readLine();
+                                                        break;
+                                                    } else {
+                                                        mat = getMatakuliah(nomor);
+                                                        menuSembilanAdmin(k, mat);
+                                                    }
                                                     System.out.print("Nomor Dosen yang ingin di set pada kelas : ");
                                                     nomor = angka.nextInt();
-                                                    dos = getDosen(nomor);
-                                                    menuEmpatAdmin(k, dos);
+                                                    if ((nomor + 1) > daftarDosen.size()) {
+                                                        System.out.println("Tidak ada nomor");
+                                                        namaMatkul = br.readLine();
+                                                        break;
+                                                    } else {
+                                                        dos = getDosen(nomor);
+                                                        menuSepuluhAdmin(k, dos);
+                                                    }
+
                                                     System.out.println("Berhasil Di Set");
                                                     namaMatkul = br.readLine();
                                                 }
@@ -392,10 +446,14 @@ public class Aplikasi {
                                             }
                                             System.out.println();
                                             if (m != 0) {
-                                                System.out.print("Masukkan Nomor kela yang ingin dihapus : ");
+                                                System.out.print("Masukkan Nomor kelas yang ingin dihapus : ");
                                                 nomor = angka.nextInt();
-                                                deleteKelas(nomor);
-                                                System.out.println("Berhasil Dihapus");
+                                                if ((nomor + 1) > daftarKelas.size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                } else {
+                                                    menuEnamAdmin(nomor);
+                                                    System.out.println("Berhasil Dihapus");
+                                                }
                                                 namaMatkul = br.readLine();
                                             } else {
                                                 System.out.println("Kosong");
@@ -409,19 +467,16 @@ public class Aplikasi {
                                             namaKelas = huruf.next();
                                             System.out.print("Masukkan Nama Matakuliah : ");
                                             namaMatkul = huruf.next();
-                                            for (Kelas list1 : daftarKelas) {
-                                                if ((list1.getNamaKelas() == namaKelas) && (list1.getMatakuliah().getNamaMatkul() == namaMatkul)) {
-                                                    System.out.println("Nama Kelas : " + list1.getNamaKelas());
-                                                    System.out.println("Nama Matakuliah : " + list1.getMatakuliah().getNamaMatkul());
 
-                                                    ada = true;
-                                                }
-                                            }
-                                            if (ada == false) {
+                                            if (menuTujuhAdmin(namaKelas, namaMatkul) != null) {
+                                                System.out.println("Nama Kelas : " + menuTujuhAdmin(namaKelas, namaMatkul).getNamaKelas());
+                                                System.out.println("Nama Matakuliah : " + menuTujuhAdmin(namaKelas, namaMatkul).getMatakuliah().getNamaMatkul());
+                                                namaMatkul = br.readLine();
+                                            } else {
                                                 System.out.println("Tidak ditemukan");
                                                 namaMatkul = br.readLine();
                                             }
-                                            namaMatkul = br.readLine();
+
                                             break;
 
                                         case 18:
@@ -430,11 +485,11 @@ public class Aplikasi {
                                             System.out.println("Daftar Kelas");
                                             l = 0;
                                             m = 0;
-                                            if (daftarKelas.isEmpty()) {
+                                            if (menuDelapanAdmin().isEmpty()) {
                                                 System.out.println("Kosong");
                                                 namaMatkul = br.readLine();
                                             } else {
-                                                for (Kelas list1 : daftarKelas) {
+                                                for (Kelas list1 : menuDelapanAdmin()) {
                                                     if ((list1.getMatakuliah() != null) && (list1.getDosen() != null)) {
                                                         System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getNik());
                                                     } else if (list1.getMatakuliah() == null && list1.getDosen() != null) {
@@ -451,11 +506,17 @@ public class Aplikasi {
                                                 System.out.println();
                                                 System.out.print("Masukkan nomor kelas yang ingin diatur : ");
                                                 nomor = angka.nextInt();
-                                                kel = getKelas(nomor);
+                                                if ((nomor + 1) > daftarKelas.size()) {
+                                                    System.out.println("Tidak ada kelas");
+                                                    namaMatkul = br.readLine();
+                                                    break;
+                                                } else {
+                                                    kel = getKelas(nomor);
+                                                }
                                                 if (daftarMatakuliah.isEmpty() || daftarDosen.isEmpty()) {
                                                     System.out.println();
                                                     System.out.println("Daftar Matakuliah atau Dosen masih kosong, Silahakan melakukan input terlebih dahulu");
-                                                    
+
                                                 } else {
                                                     System.out.println("Daftar MataKuliah");
                                                     i = 0;
@@ -478,12 +539,25 @@ public class Aplikasi {
                                                     System.out.println();
                                                     System.out.print("Nomor Matakuliah yang ingin di set pada kelas : ");
                                                     nomor = angka.nextInt();
-                                                    mat = getMatakuliah(nomor);
-                                                    menuTigaAdmin(kel, mat);
+
+                                                    if ((nomor + 1) > daftarMatakuliah.size()) {
+                                                        System.out.println("Tidak ada nomor");
+                                                        namaMatkul = br.readLine();
+                                                        break;
+                                                    } else {
+                                                        mat = getMatakuliah(nomor);
+                                                        menuSembilanAdmin(kel, mat);
+                                                    }
                                                     System.out.print("Nomor Dosen yang ingin di set pada kelas : ");
                                                     nomor = angka.nextInt();
-                                                    dos = getDosen(nomor);
-                                                    menuEmpatAdmin(kel, dos);
+                                                    if ((nomor + 1) > daftarDosen.size()) {
+                                                        System.out.println("Tidak ada nomor");
+                                                        namaMatkul = br.readLine();
+                                                        break;
+                                                    } else {
+                                                        dos = getDosen(nomor);
+                                                        menuSepuluhAdmin(kel, dos);
+                                                    }
                                                     System.out.println("Berhasil di set");
                                                     namaMatkul = br.readLine();
                                                 }
@@ -494,7 +568,7 @@ public class Aplikasi {
                                         case 19:
                                             l = 0;
                                             m = 0;
-                                            for (Kelas list1 : daftarKelas) {
+                                            for (Kelas list1 : menuDelapanAdmin()) {
                                                 if ((list1.getMatakuliah() != null) && (list1.getDosen() != null)) {
                                                     System.out.println(l + " " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getNik());
                                                 } else if (list1.getMatakuliah() == null && list1.getDosen() != null) {
@@ -589,9 +663,14 @@ public class Aplikasi {
                                             if (m != 0) {
                                                 System.out.print("Masukkan Nomor Kelas yang ditambahkan : ");
                                                 nomor = angka.nextInt();
-                                                menuSatuMhs(mah, getKelas(nomor));
-                                                System.out.println("Berhasil ditambahkan");
-                                                namaMatkul = br.readLine();
+                                                if ((nomor + 1) > daftarKelas.size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                    namaMatkul = br.readLine();
+                                                } else {
+                                                    menuSatuMhs(mah, getKelas(nomor));
+                                                    System.out.println("Berhasil ditambahkan");
+                                                    namaMatkul = br.readLine();
+                                                }
                                             } else {
                                                 System.out.println("Kosong");
                                                 namaMatkul = br.readLine();
@@ -612,9 +691,15 @@ public class Aplikasi {
                                             if (m != 0) {
                                                 System.out.print("Masukkan Nomor Kelas yang ingin dihapus : ");
                                                 nomor = angka.nextInt();
-                                                menuDuaMhs(mah, menuTigaMhs(mah).get(i));
-                                                System.out.println("Berhasil dihapus");
-                                                namaMatkul = br.readLine();
+                                                if ((nomor + 1) > menuTigaMhs(mah).size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                    namaMatkul = br.readLine();
+                                                } else {
+                                                    menuDuaMhs(mah, menuTigaMhs(mah).get(i));
+                                                    System.out.println("Berhasil dihapus");
+                                                    namaMatkul = br.readLine();
+                                                }
+
                                             } else {
                                                 System.out.println("Kosong");
                                                 namaMatkul = br.readLine();
