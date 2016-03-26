@@ -14,8 +14,8 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Aplikasi apps = new Aplikasi();
-        apps.mainMenu();
+        Aplikasi app = new Aplikasi();
+        app.mainMenu();
 
     }
 }

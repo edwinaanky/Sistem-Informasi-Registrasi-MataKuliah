@@ -123,8 +123,50 @@ public class Aplikasi {
         k.setMatakuliah(mk);
     }
 
-    public void menuSepuluhAdmin(Kelas k, Dosen d) {
+    public void menuSembilannAdmin(Kelas k, Dosen d) {
         k.setDosen(d);
+    }
+
+    public void menuSepuluhAdmin(Dosen d) {
+        addDosen(d);
+    }
+
+    public void menuSebelasAdmin(int id) {
+        deleteDosen(id);
+    }
+
+    public Dosen menuDuaBelasAdmin(long nik) {
+        for (Dosen list1 : daftarDosen) {
+            if (list1.getNik() == nik) {
+                return list1;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Dosen> menuTigaBelasAdmin() {
+        return daftarDosen;
+    }
+
+    public void menuEmpatBelasAdmin(Mahasiswa mhs) {
+        addMahasiswa(mhs);
+    }
+
+    public void menuLimaBelasAdmin(int id) {
+        deleteMahasiswa(id);
+    }
+
+    public Mahasiswa menuEnamBelasAdmin(long nim) {
+        for (Mahasiswa list1 : daftarMahasiswa) {
+            if (list1.getNim() == nim) {
+                return list1;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Mahasiswa> menuTujuhBelasAdmin() {
+        return daftarMahasiswa;
     }
 
     public void menuSatuMhs(Mahasiswa m, Kelas k) {
@@ -208,13 +250,21 @@ public class Aplikasi {
             System.out.println("17. Cari Kelas");
             System.out.println("18. Atur Kelas");
             System.out.println("19. Lihat Daftar Kelas");
+            System.out.println("20. Tambah Dosen");
+            System.out.println("21. Hapus Dosen");
+            System.out.println("22. Cari Dosen");
+            System.out.println("23. Lihat Daftar Dosen");
+            System.out.println("24. Tambah Mahasiswa");
+            System.out.println("25. Hapus Mahasiswa");
+            System.out.println("26. Cari Mahasiswa");
+            System.out.println("27. Lihat Daftar Mahasiswa");
             System.out.println("0. Log Out");
             System.out.print("Pilih Menu : ");
         } else if (userAktif instanceof Mahasiswa) {
             System.out.println();
-            System.out.println("21. Pilih Kelas");
-            System.out.println("22. Remove Kelas");
-            System.out.println("23. Show All Kelas");
+            System.out.println("31. Pilih Kelas");
+            System.out.println("32. Remove Kelas");
+            System.out.println("33. Show All Kelas");
             System.out.println("0. Log Out");
             System.out.print("Pilih Menu : ");
         }
@@ -226,8 +276,10 @@ public class Aplikasi {
         File file1 = new File("mahasiswa.txt");
         File file2 = new File("dosen.txt");
         File file3 = new File("admin.txt");
+        File file4 = new File("matakuliah.txt");
+        File file5 = new File("kelas.txt");
         if ((file1.exists()) && (file2.exists()) && (file3.exists())) {
-            createFile();
+            //createFile();
 
         } else {
             createFile();
@@ -258,12 +310,45 @@ public class Aplikasi {
                         System.out.print("Masukkan Password Admin : ");
                         password = huruf.next();
 
-                        try (FileInputStream fis = new FileInputStream(file3);
-                                ObjectInputStream ois = new ObjectInputStream(fis);) {
-
-                            admin = (Admin) ois.readObject();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if (file1.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file1);
+                                    ObjectInputStream ois = new ObjectInputStream(fis);) {
+                                daftarMahasiswa = (ArrayList<Mahasiswa>) ois.readObject();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (file2.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file2);
+                                    ObjectInputStream ois = new ObjectInputStream(fis);) {
+                                daftarDosen = (ArrayList<Dosen>) ois.readObject();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (file3.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file3);
+                                    ObjectInputStream ois = new ObjectInputStream(fis);) {
+                                admin = (Admin) ois.readObject();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (file4.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file4);
+                                    ObjectInputStream ois = new ObjectInputStream(fis);) {
+                                daftarMatakuliah = (ArrayList<Matakuliah>) ois.readObject();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if (file5.exists()) {
+                            try (FileInputStream fis = new FileInputStream(file5);
+                                    ObjectInputStream ois = new ObjectInputStream(fis);) {
+                                daftarKelas = (ArrayList<Kelas>) ois.readObject();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         if ((admin != null) && (admin.getUsernameAdmin().equals(username)) && (admin.getPasswordAdmin().equals(password))) {
@@ -280,6 +365,17 @@ public class Aplikasi {
                                     int nomor;
                                     String namaKelas;
                                     int maxMhs;
+                                    String name;
+                                    long nik;
+                                    String kk;
+                                    String status;
+                                    String jenisKelamin;
+                                    String alamat;
+                                    String telepon;
+                                    long nim;
+                                    int maxSks;
+                                    String usernameMhs;
+                                    String passwordMhs;
                                     switch (menu2) {
                                         case 11:
                                             System.out.print("Masukkan Kode Mata Kuliah : ");
@@ -291,6 +387,12 @@ public class Aplikasi {
                                             Matakuliah mk = new Matakuliah(kode, namaMatkul, sks);
                                             menuSatuAdmin(mk);
                                             System.out.print("Berhasil Ditambahkan");
+                                            try (FileOutputStream fos = new FileOutputStream("matakuliah.txt");
+                                                    ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                obj.writeObject(daftarMatakuliah);
+                                            } catch (Exception e) {
+                                                System.out.println(e.getMessage());
+                                            }
                                             namaMatkul = br.readLine();
                                             break;
 
@@ -299,7 +401,7 @@ public class Aplikasi {
                                             int i = 0;
                                             int j = 0;
                                             for (Matakuliah list1 : daftarMatakuliah) {
-                                                System.out.print(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
+                                                System.out.println(i + " " + list1.getKode() + " " + list1.getNamaMatkul());
 
                                                 i++;
                                                 j = 1;
@@ -312,6 +414,12 @@ public class Aplikasi {
                                                     System.out.println("Tidak ada nomor");
                                                 } else {
                                                     menuDuaAdmin(nomor);
+                                                    try (FileOutputStream fos = new FileOutputStream("matakuliah.txt");
+                                                            ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                        obj.writeObject(daftarMatakuliah);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
                                                     System.out.print("Berhasil Di hapus");
                                                 }
                                                 namaMatkul = br.readLine();
@@ -373,6 +481,12 @@ public class Aplikasi {
                                             maxMhs = angka.nextInt();
                                             Kelas k = new Kelas(namaKelas, maxMhs);
                                             menuLimaAdmin(k);
+                                            try (FileOutputStream fos = new FileOutputStream("kelas.txt");
+                                                    ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                obj.writeObject(daftarKelas);
+                                            } catch (Exception e) {
+                                                System.out.println(e.getMessage());
+                                            }
                                             System.out.println("Berhasil ditambahkan, silahkan mengeset kelas dan matakuliah terlebih dahulu");
                                             System.out.print("Apakah anda ingin mengeset kelas dan matakuliah ? (Y/N) : ");
                                             kode = huruf.next();
@@ -421,10 +535,16 @@ public class Aplikasi {
                                                         break;
                                                     } else {
                                                         dos = getDosen(nomor);
-                                                        menuSepuluhAdmin(k, dos);
+                                                        menuSembilannAdmin(k, dos);
                                                     }
 
                                                     System.out.println("Berhasil Di Set");
+                                                    try (FileOutputStream fos = new FileOutputStream("kelas.txt");
+                                                            ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                        obj.writeObject(daftarKelas);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
                                                     namaMatkul = br.readLine();
                                                 }
                                             } else {
@@ -452,6 +572,12 @@ public class Aplikasi {
                                                     System.out.println("Tidak ada nomor");
                                                 } else {
                                                     menuEnamAdmin(nomor);
+                                                    try (FileOutputStream fos = new FileOutputStream("kelas.txt");
+                                                            ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                        obj.writeObject(daftarKelas);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
                                                     System.out.println("Berhasil Dihapus");
                                                 }
                                                 namaMatkul = br.readLine();
@@ -556,9 +682,15 @@ public class Aplikasi {
                                                         break;
                                                     } else {
                                                         dos = getDosen(nomor);
-                                                        menuSepuluhAdmin(kel, dos);
+                                                        menuSembilannAdmin(kel, dos);
                                                     }
                                                     System.out.println("Berhasil di set");
+                                                    try (FileOutputStream fos = new FileOutputStream("kelas.txt");
+                                                            ObjectOutputStream obj = new ObjectOutputStream(fos);) {
+                                                        obj.writeObject(daftarKelas);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
                                                     namaMatkul = br.readLine();
                                                 }
                                             }
@@ -582,6 +714,229 @@ public class Aplikasi {
                                                 m = 1;
                                             }
                                             if (m == 0) {
+                                                System.out.println("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            namaMatkul = br.readLine();
+                                            break;
+
+                                        case 20:
+                                            System.out.print("Masukkan Nama Dosen : ");
+                                            name = br.readLine();
+                                            System.out.print("Masukkan NIK Dosen : ");
+                                            nik = angka.nextLong();
+                                            System.out.print("Masukkan Kelompok Keahlian Dosen : ");
+                                            kk = br.readLine();
+                                            System.out.print("Masukkan Status Dosen : ");
+                                            status = br.readLine();
+                                            System.out.print("Masukkan Jenis Kelamin Dosen : ");
+                                            jenisKelamin = br.readLine();
+                                            System.out.print("Masukkan Alamat Dosen : ");
+                                            alamat = br.readLine();
+                                            System.out.print("Masukkan Telepon Dosen : ");
+                                            telepon = br.readLine();
+                                            Dosen d = new Dosen(nik, kk, status, name, jenisKelamin, alamat, telepon);
+                                            if (menuDuaBelasAdmin(nik) == null) {
+                                                menuSepuluhAdmin(d);
+                                                try (FileOutputStream fos2 = new FileOutputStream("dosen.txt");
+                                                        ObjectOutputStream obj2 = new ObjectOutputStream(fos2);) {
+                                                    obj2.writeObject(daftarDosen);
+                                                } catch (Exception e) {
+                                                    System.out.println(e.getMessage());
+                                                }
+                                                System.out.print("Berhasil Ditambahkan");
+                                                namaMatkul = br.readLine();
+                                            } else {
+                                                System.out.println("Sudah ada");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            break;
+
+                                        case 21:
+                                            System.out.println("Daftar Dosen");
+                                            i = 0;
+                                            j = 0;
+                                            for (Dosen list1 : daftarDosen) {
+                                                System.out.println(i + " " + list1.getNik() + " " + list1.getName());
+
+                                                i++;
+                                                j = 1;
+                                            }
+                                            System.out.println();
+                                            if (j != 0) {
+                                                System.out.print("Masukkan nomor Dosen yang ingin dihapus : ");
+                                                nomor = angka.nextInt();
+                                                if ((nomor + 1) > daftarDosen.size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                } else {
+                                                    menuSebelasAdmin(nomor);
+                                                    try (FileOutputStream fos2 = new FileOutputStream("dosen.txt");
+                                                            ObjectOutputStream obj2 = new ObjectOutputStream(fos2);) {
+                                                        obj2.writeObject(daftarDosen);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
+                                                    System.out.print("Berhasil Di hapus");
+                                                }
+                                                namaMatkul = br.readLine();
+                                            } else {
+                                                System.out.println("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            break;
+
+                                        case 22:
+
+                                            i = 0;
+                                            j = 0;
+                                            for (Dosen list1 : daftarDosen) {
+
+                                                i++;
+                                                j = 1;
+                                            }
+                                            System.out.println();
+                                            if (j != 0) {
+                                                System.out.print("Masukkan NIK Dosen yang ingin dicari : ");
+                                                nik = angka.nextLong();
+                                                if (menuDuaBelasAdmin(nik) != null) {
+                                                    System.out.println("NIK Dosen : " + menuDuaBelasAdmin(nik).getNik());
+                                                    System.out.println("Nama Dosen : " + menuDuaBelasAdmin(nik).getName());
+                                                    System.out.println("Nomor Telepon : " + menuDuaBelasAdmin(nik).getTelepon());
+                                                    namaMatkul = br.readLine();
+                                                } else {
+                                                    System.out.println("Tidak ditemukan NIK dosen " + nik);
+                                                    namaMatkul = br.readLine();
+                                                }
+                                            } else {
+                                                System.out.print("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+
+                                            break;
+
+                                        case 23:
+                                            System.out.println("Daftar Dosen");
+                                            i = 0;
+                                            j = 0;
+                                            for (Dosen list1 : menuTigaBelasAdmin()) {
+                                                System.out.println(i + " " + list1.getNik() + " " + list1.getName());
+                                                i++;
+                                                j = 1;
+                                            }
+                                            if (j == 0) {
+                                                System.out.println("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            namaMatkul = br.readLine();
+                                            break;
+
+                                        case 24:
+
+                                            System.out.print("Masukkan Nama Mahasiswa : ");
+                                            name = br.readLine();
+                                            System.out.print("Masukkan NIK Mahasiswa : ");
+                                            nim = angka.nextLong();
+                                            System.out.print("Masukkan Jumlah SKS Maksimal Mahsiswa : ");
+                                            maxSks = angka.nextInt();
+                                            System.out.print("Masukkan Username Mahasiswa : ");
+                                            usernameMhs = br.readLine();
+                                            System.out.print("Masukkan Password Mahasiswa : ");
+                                            passwordMhs = br.readLine();
+                                            System.out.print("Masukkan Jenis Kelamin Mahasiswa : ");
+                                            jenisKelamin = br.readLine();
+                                            System.out.print("Masukkan Alamat Dosen : ");
+                                            alamat = br.readLine();
+                                            System.out.print("Masukkan Telepon Dosen : ");
+                                            telepon = br.readLine();
+                                            Mahasiswa mhs = new Mahasiswa(nim, maxSks, usernameMhs, passwordMhs, name, jenisKelamin, alamat, telepon);
+                                            if (menuEnamBelasAdmin(nim) == null) {
+                                                menuEmpatBelasAdmin(mhs);
+                                                try (FileOutputStream fos2 = new FileOutputStream("mahasiswa.txt");
+                                                        ObjectOutputStream obj2 = new ObjectOutputStream(fos2);) {
+                                                    obj2.writeObject(daftarMahasiswa);
+                                                } catch (Exception e) {
+                                                    System.out.println(e.getMessage());
+                                                }
+                                                System.out.print("Berhasil Ditambahkan");
+                                                namaMatkul = br.readLine();
+                                            } else {
+                                                System.out.println("Sudah ada");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            break;
+
+                                        case 25:
+                                            System.out.println("Daftar Mahasiswa");
+                                            i = 0;
+                                            j = 0;
+                                            for (Mahasiswa list1 : daftarMahasiswa) {
+                                                System.out.println(i + " " + list1.getNim() + " " + list1.getName());
+
+                                                i++;
+                                                j = 1;
+                                            }
+                                            System.out.println();
+                                            if (j != 0) {
+                                                System.out.print("Masukkan nomor Mahasiswa yang ingin dihapus : ");
+                                                nomor = angka.nextInt();
+                                                if ((nomor + 1) > daftarMahasiswa.size()) {
+                                                    System.out.println("Tidak ada nomor");
+                                                } else {
+                                                    menuLimaBelasAdmin(nomor);
+                                                    try (FileOutputStream fos2 = new FileOutputStream("mahasiswa.txt");
+                                                            ObjectOutputStream obj2 = new ObjectOutputStream(fos2);) {
+                                                        obj2.writeObject(daftarMahasiswa);
+                                                    } catch (Exception e) {
+                                                        System.out.println(e.getMessage());
+                                                    }
+                                                    System.out.print("Berhasil Di hapus");
+                                                }
+                                                namaMatkul = br.readLine();
+                                            } else {
+                                                System.out.println("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            break;
+
+                                        case 26:
+                                            i = 0;
+                                            j = 0;
+                                            for (Dosen list1 : daftarDosen) {
+
+                                                i++;
+                                                j = 1;
+                                            }
+                                            System.out.println();
+                                            if (j != 0) {
+                                                System.out.print("Masukkan NIM Mahasiswa yang ingin dicari : ");
+                                                nim = angka.nextLong();
+                                                if (menuEnamBelasAdmin(nim) != null) {
+                                                    System.out.println("NIM Mahasiswa : " + menuEnamBelasAdmin(nim).getNim());
+                                                    System.out.println("Nama Mahasiswa : " + menuEnamBelasAdmin(nim).getName());
+                                                    System.out.println("Username Mahasiswa : " + menuEnamBelasAdmin(nim).getUsernameMhs());
+                                                    System.out.println("Password Mahasiswa : " + menuEnamBelasAdmin(nim).getPasswordMhs());
+                                                    System.out.println("Nomor Telepon : " + menuEnamBelasAdmin(nim).getTelepon());
+                                                    namaMatkul = br.readLine();
+                                                } else {
+                                                    System.out.println("Tidak ditemukan NIM Mahasiswa " + nim);
+                                                    namaMatkul = br.readLine();
+                                                }
+                                            } else {
+                                                System.out.print("Kosong");
+                                                namaMatkul = br.readLine();
+                                            }
+                                            break;
+
+                                        case 27:
+                                            System.out.println("Daftar Mahasiswa");
+                                            i = 0;
+                                            j = 0;
+                                            for (Mahasiswa list1 : menuTujuhBelasAdmin()) {
+                                                System.out.println(i + " " + list1.getNim() + " " + list1.getName());
+                                                i++;
+                                                j = 1;
+                                            }
+                                            if (j == 0) {
                                                 System.out.println("Kosong");
                                                 namaMatkul = br.readLine();
                                             }
@@ -622,9 +977,12 @@ public class Aplikasi {
                             e.printStackTrace();
                         }
 
-                        System.out.print("Masukkan Username Mahasiswa : ");
+                        System.out.print(
+                                "Masukkan Username Mahasiswa : ");
                         username = huruf.next();
-                        System.out.print("Masukkan Password Mahasiswa : ");
+
+                        System.out.print(
+                                "Masukkan Password Mahasiswa : ");
                         password = huruf.next();
 
                         for (Mahasiswa list4 : daftarMahasiswa) {
@@ -634,7 +992,8 @@ public class Aplikasi {
                             }
                         }
                         mah = getMahasiswa(i);
-                        if (ada == true) {
+                        if (ada
+                                == true) {
                             System.out.println("Selamat Datang " + mah.getName());
                             userAktif = mah;
                             username = br.readLine();
@@ -649,7 +1008,7 @@ public class Aplikasi {
                                     String namaKelas;
                                     int maxMhs;
                                     switch (menu3) {
-                                        case 21:
+                                        case 31:
                                             System.out.println("Dafar Kelas");
                                             int l = 0;
                                             int m = 0;
@@ -677,7 +1036,7 @@ public class Aplikasi {
                                             }
                                             break;
 
-                                        case 22:
+                                        case 32:
                                             System.out.println("Dafar Kelas");
                                             l = 0;
                                             m = 0;
@@ -706,12 +1065,12 @@ public class Aplikasi {
                                             }
                                             break;
 
-                                        case 23:
+                                        case 33:
                                             System.out.println("Dafar Kelas");
                                             l = 0;
                                             m = 0;
                                             for (Kelas list1 : menuTigaMhs(mah)) {
-                                                System.out.print(l + ". " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getName());
+                                                System.out.println(l + ". " + list1.getNamaKelas() + " " + list1.getMatakuliah().getNamaMatkul() + " " + list1.getDosen().getName());
 
                                                 l++;
                                                 m = 1;
@@ -746,14 +1105,16 @@ public class Aplikasi {
                         break;
 
                     case 0:
-                        System.out.println("TERIMA KASIH");
+                        System.out.println(
+                                "TERIMA KASIH");
                         pilihan1 = 0;
                         userAktif = null;
                         username = br.readLine();
                         break;
 
                     default:
-                        System.out.println("Menu tidak ada");
+                        System.out.println(
+                                "Menu tidak ada");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Menu Salah. Menu yang benar 1 / 2 / 0");
