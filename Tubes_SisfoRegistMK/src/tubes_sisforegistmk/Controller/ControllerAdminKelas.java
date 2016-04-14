@@ -32,7 +32,7 @@ public class ControllerAdminKelas implements ActionListener{
         this.daftarKelas = model.getDaftarKelas();
         DefaultTableModel tmodel = (DefaultTableModel) view.getjTableKelas().getModel();
         for(Kelas k : daftarKelas){
-            Object[] row = {k.getNamaKelas(),k.getJmlMhs(),k.getMaxMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
+            Object[] row = {k.getId(),k.getNamaKelas(),k.getMaxMhs(),k.getJmlMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
             tmodel.addRow(row);
         }
         
@@ -48,7 +48,7 @@ public class ControllerAdminKelas implements ActionListener{
         this.daftarKelas = model.getDaftarKelas();
         DefaultTableModel tmodel = (DefaultTableModel) view.getjTableKelas().getModel();
         for(Kelas k : daftarKelas){
-            Object[] row = {k.getNamaKelas(),k.getJmlMhs(),k.getMaxMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
+            Object[] row = {k.getId(),k.getNamaKelas(),k.getMaxMhs(),k.getJmlMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
             tmodel.addRow(row);
         }
     }

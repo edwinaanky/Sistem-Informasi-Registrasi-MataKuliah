@@ -84,22 +84,23 @@ public class Application {
     }
 
     public void updateDosen(Dosen d, long nik) {
-        int no = 0;
-        int non = 0;
+
         for (Dosen list1 : daftarDosen) {
-            no++;
-            if (list1.getNik() == nik) {
-                non = no;
+
+            if (list1.equals(d)) {
+                list1.setAlamat(d.getAlamat());
+                list1.setNik(d.getNik());
+                list1.setKk(d.getKk());
+                list1.setStatus(d.getStatus());
+                list1.setTelepon(d.getTelepon());
+                list1.setJenisKelamin(d.getJenisKelamin());
+                list1.setName(d.getName());
+
             }
+
         }
-        daftarDosen.get(non).setAlamat(d.getAlamat());
-        daftarDosen.get(non).setNik(d.getNik());
-        daftarDosen.get(non).setKk(d.getKk());
-        daftarDosen.get(non).setStatus(d.getStatus());
-        daftarDosen.get(non).setTelepon(d.getTelepon());
-        daftarDosen.get(non).setJenisKelamin(d.getJenisKelamin());
-        daftarDosen.get(non).setName(d.getName());
         connection.update_orang_dosen(d);
+
     }
 
     public ArrayList<Dosen> getDaftarDosen() {
@@ -117,18 +118,10 @@ public class Application {
     }
 
     public void deleteDosen(Dosen d) {
-        int no = 0;
-        int non = 0;
-        for (Dosen list1 : daftarDosen) {
-            no++;
-            if (list1 == d) {
-                non = no;
-            }
-        }
-        deleteDosen(non);
+        daftarDosen.remove(d);
         connection.deleteDosen(d);
     }
-    
+
     public void createMatakuliah(String kode, String nama, int sks) {
         Matakuliah m = new Matakuliah(kode, nama, sks);
         addMatakuliah(m);
@@ -136,17 +129,13 @@ public class Application {
     }
 
     public void updateMatakuliah(Matakuliah m, String kode) {
-        int no = 0;
-        int non = 0;
         for (Matakuliah list1 : daftarMatakuliah) {
-            no++;
-            if (list1.getKode() == kode) {
-                non = no;
+            if (list1.equals(m)) {
+                list1.setKode(m.getKode());
+                list1.setNamaMatkul(m.getNamaMatkul());
+                list1.setSks(m.getSks());
             }
         }
-        daftarMatakuliah.get(non).setKode(m.getKode());
-        daftarMatakuliah.get(non).setNamaMatkul(m.getNamaMatkul());
-        daftarMatakuliah.get(non).setSks(m.getSks());
         connection.update_matakuliah(m);
     }
 
@@ -165,18 +154,10 @@ public class Application {
     }
 
     public void deleteMatakuliah(Matakuliah m) {
-        int no = 0;
-        int non = 0;
-        for (Matakuliah list1 : daftarMatakuliah) {
-            no++;
-            if (list1 == m) {
-                non = no;
-            }
-        }
-        deleteMatakuliah(non);
+        daftarMatakuliah.remove(m);
         connection.deleteMatakuliah(m);
     }
-    
+
     public void createKelas(String nama, int maxmhs, Dosen d, Matakuliah m) {
         Kelas k = new Kelas(nama, maxmhs);
         k.setDosen(d);
@@ -195,12 +176,11 @@ public class Application {
             }
         }
         daftarKelas.get(non).setNamaKelas(k.getNamaKelas());
-        
+
         daftarKelas.get(non).setMaxMhs(k.getMaxMhs());
         daftarKelas.get(non).setDosen(k.getDosen());
         daftarKelas.get(non).setMatakuliah(k.getMatakuliah());
-        
-        
+
         connection.update_kelas(k);
     }
 
@@ -219,46 +199,37 @@ public class Application {
     }
 
     public void deleteKelas(Kelas k) {
-        int no = 0;
-        int non = 0;
-        for (Kelas list1 : daftarKelas) {
-            no++;
-            if (list1 == k) {
-                non = no;
-            }
-        }
-        deleteKelas(non);
+        daftarKelas.remove(k);
         connection.deleteKelas(k);
     }
-    
+
     public void createMahasiswa(long nim, int maxSks, String usernameMhs, String passwordMhs, String name, String jenisKelamin, String alamat, String telepon, String jurusan, int semester) {
-        
+
         Mahasiswa mhs = new Mahasiswa(nim, maxSks, usernameMhs, passwordMhs, name, jenisKelamin, alamat, telepon, jurusan, semester);
         addMahasiswa(mhs);
         connection.insert_orang_mahasiswa(mhs);
     }
 
     public void updateMahasiswa(Mahasiswa mhs, long nim) {
-        int no = 0;
-        int non = 0;
+
         for (Mahasiswa list1 : daftarMahasiswa) {
-            no++;
-            if (list1.getNim() == nim) {
-                non = no;
+
+            if (list1.equals(mhs)) {
+                list1.setAlamat(mhs.getAlamat());
+                list1.setJenisKelamin(mhs.getJenisKelamin());
+                list1.setJumlahKelas(mhs.getJumlahKelas());
+                list1.setJumlahSks(mhs.getJumlahSks());
+                list1.setJurusan(mhs.getJurusan());
+                list1.setMaxSks(mhs.getMaxSks());
+                list1.setName(mhs.getName());
+                list1.setNim(mhs.getNim());
+                list1.setPasswordMhs(mhs.getPasswordMhs());
+                list1.setSemester(mhs.getSemester());
+                list1.setTelepon(mhs.getTelepon());
+                list1.setUsernameMhs(mhs.getUsernameMhs());
             }
         }
-        daftarMahasiswa.get(non).setAlamat(mhs.getAlamat());
-        daftarMahasiswa.get(non).setJenisKelamin(mhs.getJenisKelamin());
-        daftarMahasiswa.get(non).setJumlahKelas(mhs.getJumlahKelas());
-        daftarMahasiswa.get(non).setJumlahSks(mhs.getJumlahSks());
-        daftarMahasiswa.get(non).setJurusan(mhs.getJurusan());
-        daftarMahasiswa.get(non).setMaxSks(mhs.getMaxSks());
-        daftarMahasiswa.get(non).setName(mhs.getName());
-        daftarMahasiswa.get(non).setNim(mhs.getNim());
-        daftarMahasiswa.get(non).setPasswordMhs(mhs.getPasswordMhs());
-        daftarMahasiswa.get(non).setSemester(mhs.getSemester());
-        daftarMahasiswa.get(non).setTelepon(mhs.getTelepon());
-        daftarMahasiswa.get(non).setUsernameMhs(mhs.getUsernameMhs());
+
         connection.update_orang_mahasiswa(mhs);
     }
 
@@ -277,15 +248,7 @@ public class Application {
     }
 
     public void deleteMahasiswa(Mahasiswa mhs) {
-        int no = 0;
-        int non = 0;
-        for (Mahasiswa list1 : daftarMahasiswa) {
-            no++;
-            if (list1 == mhs) {
-                non = no;
-            }
-        }
-        deleteMahasiswa(non);
+        daftarMahasiswa.remove(mhs);
         connection.deleteMahasiswa(mhs);
     }
 }

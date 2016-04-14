@@ -55,6 +55,7 @@ public class ControllerAdminDosenCreate implements ActionListener {
             view.getjRadioButtonHonorer().doClick();
             
         }
+        view.getjButtonCreate().setText("Update");
 
     }
 
@@ -97,6 +98,12 @@ public class ControllerAdminDosenCreate implements ActionListener {
                     d.setNik(nikk);
                     d.setTelepon(view.getjTextFieldTelepon().getText());
                     model.updateDosen(d, nikk);
+                    JOptionPane.showMessageDialog(view, "Data dosen berhasil diupdate");
+                    view.getjTextAreaAlamat().setText("");
+                    view.getjTextFieldNama().setText("");
+                    view.getjTextFieldNik().setText("");
+                    view.getjTextFieldTelepon().setText("");
+                    view.dispose();
                 }
 //                d = new Dosen(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());
 

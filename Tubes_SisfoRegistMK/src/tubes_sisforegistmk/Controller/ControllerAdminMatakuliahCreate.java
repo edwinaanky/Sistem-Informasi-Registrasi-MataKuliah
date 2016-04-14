@@ -41,7 +41,7 @@ public class ControllerAdminMatakuliahCreate implements ActionListener {
         view.getjTextFieldKode().setText(m.getKode());
         view.getjTextFieldNama().setText(m.getNamaMatkul());
         view.getjTextFieldSks().setText(Integer.toString(m.getSks()));
-
+        view.getjButtonCreate().setText("Update");
     }
 
     @Override
@@ -65,6 +65,11 @@ public class ControllerAdminMatakuliahCreate implements ActionListener {
                     m.setNamaMatkul(view.getjTextFieldNama().getText());
                     m.setSks(Integer.parseInt(view.getjTextFieldSks().getText()));
                     model.updateMatakuliah(m, view.getjTextFieldKode().getText());
+                    JOptionPane.showMessageDialog(view, "Data dosen berhasil diupdate");
+                    view.getjTextFieldKode().setText("");
+                    view.getjTextFieldNama().setText("");
+                    view.getjTextFieldSks().setText("");
+                    view.dispose();
                 }
 //                d = new Matakuliah(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());
 

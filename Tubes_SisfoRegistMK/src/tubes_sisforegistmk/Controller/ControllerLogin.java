@@ -47,20 +47,20 @@ public class ControllerLogin implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Password masih kosong", "Password salah", JOptionPane.ERROR_MESSAGE);
                 l.gettPassword().requestFocus();
             } else {
-
+                
                 admin = db.autha(l.gettUsername().getText(), l.gettPassword().getText());
                 mahasiswa = db.authm(l.gettUsername().getText(), l.gettPassword().getText());
+                System.out.println(l.gettUsername().getText()+" "+l.gettPassword().getText());
                 if (mahasiswa == null && admin != null) {
 //                    System.out.println(db.getAllDosen().get(0).getNik());
                     JOptionPane.showMessageDialog(l, "Selamat Datang Administrator " + admin.getName(), "Admin", JOptionPane.INFORMATION_MESSAGE);
-                    ControllerAdmin ca = new ControllerAdmin();
+                    new ControllerAdmin();
                     l.dispose();
 
                 } else if (admin == null && mahasiswa != null) {
-//                    dm = new DashboardMahasiswa();
 //                    JOptionPane.showMessageDialog(dm, "Selamat Datang "+admin.getName(), "Mahasiswa", JOptionPane.INFORMATION_MESSAGE);
-//                    dm.setVisible(true);
-
+                    JOptionPane.showMessageDialog(l, "Selamat Datang " + mahasiswa.getName(), "Mahasiswa", JOptionPane.INFORMATION_MESSAGE);
+                    new ControllerMahasiswa();
                     l.dispose();
 
                 } else {

@@ -74,7 +74,7 @@ public class ControllerAdminMahasiswa implements ActionListener {
             }
         } else if (obj.equals(view.getjButtonUpdate())) {
             long nik;
-            Object nikk = new Object();
+            
             String nika = JOptionPane.showInputDialog(view, "Masukkan nik Mahasiswa", "Update", JOptionPane.QUESTION_MESSAGE);
             nik = Long.parseLong(nika);
             Mahasiswa d = model.getMahasiswa(nik);

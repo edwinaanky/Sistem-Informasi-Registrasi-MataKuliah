@@ -63,10 +63,13 @@ public class Database {
     
     public Mahasiswa authm(String username, String password) {
         Mahasiswa mahasiswa = null;
+        ResultSet result = null;
+        ResultSet rs = null;
         try {
-            ResultSet result = statement.executeQuery("select * from mahasiswa where username = '" + username + "'");
+            result = statement.executeQuery("select * from mahasiswa where username = '" + username + "'");
             if (result.next()) {
-                if(password.equals(result.getString("password"))){
+                
+                if(result.getString("password").equals(password)){
                     long mahasiswaNim = result.getInt("nim");
                     int mahasiswaJumlahSks = result.getInt("jumlahsks");
                     int mahasiswaMaxSks = result.getInt("maxsks");
@@ -74,18 +77,17 @@ public class Database {
                     int mahasiswaSemester = result.getInt("semester");
                     String mahasiswaJurusan = result.getString("jurusan");               
                     String mahasiwaUsername = result.getString("username");
-                    String mahasiswaPassword = result.getString("password");
-                    
+                    String mahasiswaPassword = result.getString("password");                   
                     int orangId = result.getInt("id_orang");
+                    
+                    rs = statement.executeQuery("select * from orang where id = " + orangId);
 
-                    result = statement.executeQuery("select * from orang where id = " + orangId);
-
-                    if (result.next()) {
-
-                        String orangName = result.getString("name");
-                        String orangJenisKelamin = result.getString("jeniskelamin");
-                        String orangAlamat = result.getString("alamat");
-                        String orangTelepon = result.getString("telepon");
+                    if (rs.next()) {
+                        
+                        String orangName = rs.getString("nama");
+                        String orangJenisKelamin = rs.getString("jeniskelamin");
+                        String orangAlamat = rs.getString("alamat");
+                        String orangTelepon = rs.getString("telepon");
                         
                         mahasiswa = new Mahasiswa(mahasiswaNim,mahasiswaMaxSks,mahasiwaUsername,mahasiswaPassword,orangName,orangJenisKelamin,orangAlamat,orangTelepon,mahasiswaJurusan,mahasiswaSemester);
 
@@ -313,15 +315,24 @@ public class Database {
     public ArrayList<Kelas> getAllKelas(){
         ArrayList<Kelas> daftarKelas = new ArrayList();
         ResultSet rs = null;
-        String query = "select namakelas,maxmhs,jmlmhs,id_matkul,id_dosen from kelas";
+        String query = "select k.namakelas,k.maxmhs,k.jmlmhs,k.id_matkul,k.id_dosen, "
+                + "d.nik,d.kk,d.status,o.nama,o.jeniskelamin,o.alamat,o.telepon,o.id,"
+                + "m.kode,m.nama,m.sks,k.id "
+                + "from kelas as k, dosen as d, orang as o, matakuliah as m "
+                + "where o.id=d.id_orang and "
+                + "k.id_dosen = d.nik and "
+                + "k.id_matkul = m.kode";
         try{
             rs = statement.executeQuery(query);
             while(rs.next()){
                 
-                Kelas k = new Kelas(rs.getString(2), rs.getInt(2));
-                
-                Matakuliah m = getMatakuliah(rs.getString(4));
-                Dosen d = getDosen(rs.getLong(5));
+                Kelas k = new Kelas(rs.getString(1), rs.getInt(2));
+                k.setId(rs.getInt(17));
+//                Matakuliah m = getMatakuliah(rs.getString(4));
+//                Dosen d = getDosen(rs.getLong(5));
+               Matakuliah m = new Matakuliah(rs.getString(4), rs.getString(15), rs.getInt(16));
+                Dosen d = new Dosen(rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12));
+                d.setId(rs.getInt(13));
                 k.setDosen(d);
                 k.setMatakuliah(m);
                 daftarKelas.add(k);
@@ -384,9 +395,9 @@ public class Database {
                 +0+","
                 +mhs.getMaxSks()+","
                 +0+","
-                +"'"+mhs.getUsernameMhs()+","
-                +"'"+mhs.getPasswordMhs()+","
-                +mhs.getSemester()+"',"
+                +"'"+mhs.getUsernameMhs()+"',"
+                +"'"+mhs.getPasswordMhs()+"',"
+                +mhs.getSemester()+","
                 +"'"+mhs.getJurusan()+"',"
                 +mhs.getId()+")";
             statement.execute(query2);

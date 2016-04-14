@@ -46,6 +46,7 @@ public class ControllerAdminMahasiswaCreate implements ActionListener {
         view.getjTextFieldTelepon().setText(mhs.getTelepon());
         view.getjTextFieldUsername().setText(mhs.getUsernameMhs());
         view.setTitle("Edit Mahasiswa");
+        view.getjButtonCreate().setText("Update");
 //        if (d.getJenisKelamin().equals("pria")) {
 //            view.getjRadioButtonPria().doClick();
 //        } else if (d.getJenisKelamin().equals("wanita")) {
@@ -80,7 +81,7 @@ public class ControllerAdminMahasiswaCreate implements ActionListener {
 
                 if (mhs == null) {
                     model.createMahasiswa(nimm, Integer.parseInt(view.getjTextFieldSks().getText()), view.getjTextFieldUsername().getText(), view.getjTextFieldPassword().getText(), view.getjTextFieldNama().getText(), jk, view.getjTextAreaAlamat().getText(), view.getjTextFieldTelepon().getText(), view.getjComboBoxJurusan().getSelectedItem().toString(), Integer.parseInt(view.getjComboBoxSemester().getSelectedItem().toString()));
-                    JOptionPane.showMessageDialog(view, "Data dosen berhasil diinputkan");
+                    JOptionPane.showMessageDialog(view, "Data mahasiswa berhasil diinputkan");
                     view.getjTextFieldNama().setText("");
                     view.getjTextFieldNim().setText("");
                     view.getjTextAreaAlamat().setText("");
@@ -96,11 +97,20 @@ public class ControllerAdminMahasiswaCreate implements ActionListener {
                     mhs.setJurusan(view.getjComboBoxJurusan().getSelectedItem().toString());
                     mhs.setNim(Long.parseLong(view.getjTextFieldNim().getText()));
                     mhs.setPasswordMhs(view.getjTextFieldPassword().getText());
-                    mhs.setUsernameMhs(view.getjTextFieldPassword().getText());
+                    mhs.setUsernameMhs(view.getjTextFieldUsername().getText());
                     mhs.setSemester(Integer.parseInt(view.getjComboBoxSemester().getSelectedItem().toString()));
                     mhs.setJenisKelamin(jk);
                     mhs.setTelepon(view.getjTextFieldTelepon().getText());
                     model.updateMahasiswa(mhs, nimm);
+                    JOptionPane.showMessageDialog(view, "Data Mahasiswa berhasil diupdate");
+                    view.getjTextFieldNama().setText("");
+                    view.getjTextFieldNim().setText("");
+                    view.getjTextAreaAlamat().setText("");
+                    view.getjTextFieldPassword().setText("");
+                    view.getjTextFieldUsername().setText("");
+                    view.getjTextFieldSks().setText("");
+                    view.getjTextFieldTelepon().setText("");
+                    view.dispose();
                 }
 //                d = new Dosen(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());
 

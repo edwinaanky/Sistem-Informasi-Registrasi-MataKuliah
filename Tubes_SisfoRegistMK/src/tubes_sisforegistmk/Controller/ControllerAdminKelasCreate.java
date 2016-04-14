@@ -58,6 +58,7 @@ public class ControllerAdminKelasCreate implements ActionListener{
         for (Matakuliah m1 : m) {
             view.getjComboBoxMatkul().addItem(m1.getNamaMatkul());
         }
+        view.getjButtonCreate().setText("Update");
     }
 
     @Override
@@ -99,6 +100,10 @@ public class ControllerAdminKelasCreate implements ActionListener{
                     k.setDosen(d);
                     k.setMatakuliah(m);
                     model.updateKelas(k, k.getId());
+                    JOptionPane.showMessageDialog(view, "Data Kelas berhasil diupdate");
+                    view.getjTextFieldNama().setText("");
+                    view.getjTextFieldMaxmhs().setText("");
+                    view.dispose();
                 }
 //                d = new Dosen(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());
 
