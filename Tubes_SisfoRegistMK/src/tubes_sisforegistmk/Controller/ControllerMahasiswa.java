@@ -25,6 +25,7 @@ public class ControllerMahasiswa implements ActionListener{
         view.AddActionListener(this);
         model = new Application();
         this.m = mhs;
+        
     }
     
     public ControllerMahasiswa() {

@@ -30,6 +30,7 @@ public class ControllerAdmin implements ActionListener{
         view.setVisible(true);
         view.addActionListener(this);
         model = new Application();
+        view.setTitle("Dashboard Admin");
     }
     
     @Override

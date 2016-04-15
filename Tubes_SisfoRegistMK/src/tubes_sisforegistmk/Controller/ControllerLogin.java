@@ -31,6 +31,7 @@ public class ControllerLogin implements ActionListener {
         l.addActionListener(this);
         db = new Database();
         db.connect();
+        l.setTitle("Login");
     }
 
     @Override
