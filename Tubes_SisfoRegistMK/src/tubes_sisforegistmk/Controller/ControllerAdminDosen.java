@@ -8,8 +8,10 @@ package tubes_sisforegistmk.Controller;
 import tubes_sisforegistmk.View.AdminKelolaDosen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 import tubes_sisforegistmk.Model.Application;
 import tubes_sisforegistmk.View.*;
+
 /**
  *
  * @author desmoncode
@@ -32,7 +34,7 @@ public class ControllerAdminDosen implements ActionListener{
         view.setVisible(true);
         view.addActionListener(this);
         view.setTitle("Kelola Dosen");
-        
+        DefaultTableModel
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
