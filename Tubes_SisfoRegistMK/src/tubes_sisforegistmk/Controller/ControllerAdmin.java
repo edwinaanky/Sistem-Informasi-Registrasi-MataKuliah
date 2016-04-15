@@ -7,38 +7,49 @@ package tubes_sisforegistmk.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import tubes_sisforegistmk.Model.Application;
 import tubes_sisforegistmk.View.*;
 /**
  *
  * @author desmoncode
  */
 public class ControllerAdmin implements ActionListener{
-    DashboardAdmin da = new DashboardAdmin();
+    Application model;
+    DashboardAdmin view;
     
     public ControllerAdmin(String nama) {
-        da.setVisible(true);
-        da.addActionListener(this);
-        da.getjLabelWelcome().setText("Selamat Datang, "+nama);
+        view = new DashboardAdmin();
+        view.setVisible(true);
+        view.addActionListener(this);
+        view.getjLabelWelcome().setText("Selamat Datang, "+nama);
+        model = new Application();
     }
-
+    
+    public ControllerAdmin() {
+        view = new DashboardAdmin();
+        view.setVisible(true);
+        view.addActionListener(this);
+        model = new Application();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         Object obj = ae.getSource();
-        if(obj.equals(da.getjButtonDosen())){
-            ControllerAdminDosen cad = new ControllerAdminDosen(da.getjLabelWelcome().getText());
+        if(obj.equals(view.getjButtonDosen())){
+            new ControllerAdminDosen(view.getjLabelWelcome().getText(),model);
             
         }
-        else if(obj.equals(da.getjButtonKelas())){
+        else if(obj.equals(view.getjButtonKelas())){
             
         }
-        else if(obj.equals(da.getjButtonKeluar())){
-            da.dispose();
+        else if(obj.equals(view.getjButtonKeluar())){
+            view.dispose();
             ControllerLogin cl = new ControllerLogin();
         }
-        else if(obj.equals(da.getjButtonMahasiswa())){
+        else if(obj.equals(view.getjButtonMahasiswa())){
             
         }
-        else if(obj.equals(da.getjButtonMatakuliah())){
+        else if(obj.equals(view.getjButtonMatakuliah())){
             
         }
         

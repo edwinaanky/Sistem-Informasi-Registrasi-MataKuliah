@@ -21,7 +21,7 @@ public class Main {
 //        Aplikasi apps = new Aplikasi();
 //        apps.mainMenu();
 //        apps.createFile();
-        new ControllerLogin();
+        ControllerLogin ctrl = new ControllerLogin();
         
 
 

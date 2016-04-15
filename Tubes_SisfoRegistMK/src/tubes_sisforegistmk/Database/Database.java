@@ -5,13 +5,14 @@
  */
 package tubes_sisforegistmk.Database;
 import java.sql.*;
+import java.util.ArrayList;
 import tubes_sisforegistmk.Model.*;
 /**
  *
  * @author desmoncode
  */
 public class Database {
-    private String server="jdbc:mysql://localhost:3306/db_registrasi";
+    private String server="jdbc:mysql://localhost/db_registrasi";
     private String dbuser="root";
     private String dbpassword="";
     private Statement statement;
@@ -29,24 +30,22 @@ public class Database {
     
     public Admin autha(String username, String password) {
         Admin admin = null;
-        ResultSet rs = null;
-        String query = "Select * from admin where username='"+username+"'";
-        try {     
-            rs = statement.executeQuery(query);
-            if (rs.next()) {
-                if(password.equals(rs.getString("password"))){
-                    int adminId = rs.getInt("id");
-                    String adminUsername = rs.getString("username");
-                    String adminPassword = rs.getString("password");
-                    int orangId = rs.getInt("id_orang");
+        try {
+            ResultSet result = statement.executeQuery("select * from admin where username = '" + username + "'");
+            if (result.next()) {
+                if(password.equals(result.getString("password"))){
+                    int adminId = result.getInt("id");
+                    String adminUsername = result.getString("username");
+                    String adminPassword = result.getString("password");
+                    int orangId = result.getInt("id_orang");
 
-                    rs = statement.executeQuery("select * from orang where id = " + orangId);
+                    result = statement.executeQuery("select * from orang where id = " + orangId);
 
-                    if (rs.next()) {
-                        String orangName = rs.getString("nama");
-                        String orangJenisKelamin = rs.getString("jeniskelamin");
-                        String orangAlamat = rs.getString("alamat");
-                        String orangTelepon = rs.getString("telepon");
+                    if (result.next()) {
+                        String orangName = result.getString("nama");
+                        String orangJenisKelamin = result.getString("jeniskelamin");
+                        String orangAlamat = result.getString("alamat");
+                        String orangTelepon = result.getString("telepon");
                         admin = new Admin(adminId, adminUsername, adminPassword, orangName, orangJenisKelamin, orangAlamat, orangTelepon);
 
                     }
@@ -118,21 +117,49 @@ public class Database {
                 generatedId = rs.getInt(1);
             }
             ds.setId(generatedId);
-            statement.executeQuery(query1);
+            statement.executeQuery(query2);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
-        
     }
     
-    public void insert_dosen(Dosen d){
+    public void update_orang_dosen(Dosen d){
         Dosen ds = d;
+        ResultSet rs = null;
+        String query1 = "update orang set nama='"+d.getName()+"',"
+                +"jeniskelamin='"+d.getJenisKelamin()+"',"
+                +"alamat='"+d.getAlamat()+"',"
+                +"telepon='"+d.getTelepon()+"'"
+                +"where id="+d.getId();
+        String query2 = "update dosen set kk='"+d.getKk()+"',"
+                +"status='"+d.getStatus()+"',"
+                +"id_orang="+d.getId()
+                +"where nik="+d.getNik();
         try {
-            ResultSet result = statement.executeQuery("insert into dosen ('name','jeniskelamin','alamat','telepon') values '" + ds.getName() + "','"+ds.getJenisKelamin()+"','"+ds.getAlamat()+"','"+ds.getTelepon());
-            
+            statement.executeUpdate(query1);
+            statement.executeUpdate(query2);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public ArrayList<Dosen> getAllDosen(){
+        ArrayList<Dosen> daftarDosen = new ArrayList();
+        ResultSet rs = null;
+        String query = "select d.nik,d.kk,d.status,o.nama,o.jeniskelamin,o.alamat,o.telepon,o.id "
+                + "from orang as o, dosen as d "
+                + "where o.id=d.id_orang";
+        try{
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                Dosen d = new Dosen(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+                d.setId(rs.getInt(8));
+                daftarDosen.add(d);
+            }
+        } catch(Exception e){
+            System.out.println("Error load all");
+            e.printStackTrace();
+        }
+        return daftarDosen;
     }
 }
