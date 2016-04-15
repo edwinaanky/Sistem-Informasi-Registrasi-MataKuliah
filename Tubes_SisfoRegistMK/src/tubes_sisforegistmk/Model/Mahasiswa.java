@@ -98,14 +98,14 @@ public class Mahasiswa extends Orang implements Serializable {
        
     }
 
-    public Kelas getKelas(String namaKelas) {
-        Kelas kelas = null;
-        for (int i = 0; i < pilihan.size(); i++) {
-            if (pilihan.get(i).getNamaKelas().equals(namaKelas)) {
-                kelas = pilihan.get(i);
+    public Kelas getKelasbyid(int id) {
+        Kelas kls = null;
+        for (Kelas pilihan1 : pilihan) {
+            if(pilihan1.getId()==id){
+                kls = pilihan1;
             }
         }
-        return kelas;
+        return kls;
     }
 
     public Kelas getKelas(int index) {

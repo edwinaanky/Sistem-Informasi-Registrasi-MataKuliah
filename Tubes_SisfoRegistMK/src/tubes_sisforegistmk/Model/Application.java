@@ -251,4 +251,39 @@ public class Application {
         daftarMahasiswa.remove(mhs);
         connection.deleteMahasiswa(mhs);
     }
+    
+    public int tambahKelasMhs(Mahasiswa m,Kelas k){
+        int jumlah = 0;
+        int jml = 0;
+        int berhasil = 0;
+        Kelas kel = null;
+        kel = connection.getKelasById(k.getId());
+        if(kel == null){
+            if (m.getJumlahSks() < m.getMaxSks()) {
+                if (k.getJmlMhs() < k.getMaxMhs()) {
+                    jumlah = k.getJmlMhs();
+                    jumlah++;
+                    m.addKelas(k);
+                    jml = m.getJumlahKelas();
+                    jml = m.getJumlahSks() + k.getMatakuliah().getSks();
+                    m.setJumlahSks(jml);
+                    connection.MahasiswaTambahKelas(m, k);
+                    return 1;
+                    
+                } else {
+                    return 2;
+                }
+
+            } else {
+                return 3;
+            }
+        } else {
+            return 0;
+        }
+        
+    }
+    
+    public ArrayList<Kelas> getAllKelasMahasiswa() {
+        return connection.getAllKelasMahasiswa();
+    }
 }

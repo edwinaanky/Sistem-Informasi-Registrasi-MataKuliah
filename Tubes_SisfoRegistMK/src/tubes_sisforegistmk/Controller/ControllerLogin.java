@@ -50,7 +50,7 @@ public class ControllerLogin implements ActionListener {
                 
                 admin = db.autha(l.gettUsername().getText(), l.gettPassword().getText());
                 mahasiswa = db.authm(l.gettUsername().getText(), l.gettPassword().getText());
-                System.out.println(l.gettUsername().getText()+" "+l.gettPassword().getText());
+                
                 if (mahasiswa == null && admin != null) {
 //                    System.out.println(db.getAllDosen().get(0).getNik());
                     JOptionPane.showMessageDialog(l, "Selamat Datang Administrator " + admin.getName(), "Admin", JOptionPane.INFORMATION_MESSAGE);
@@ -60,7 +60,7 @@ public class ControllerLogin implements ActionListener {
                 } else if (admin == null && mahasiswa != null) {
 //                    JOptionPane.showMessageDialog(dm, "Selamat Datang "+admin.getName(), "Mahasiswa", JOptionPane.INFORMATION_MESSAGE);
                     JOptionPane.showMessageDialog(l, "Selamat Datang " + mahasiswa.getName(), "Mahasiswa", JOptionPane.INFORMATION_MESSAGE);
-                    new ControllerMahasiswa();
+                    new ControllerMahasiswa(mahasiswa);
                     l.dispose();
 
                 } else {

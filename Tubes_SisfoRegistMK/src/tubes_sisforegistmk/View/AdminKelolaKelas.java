@@ -59,15 +59,22 @@ public class AdminKelolaKelas extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nama Kelas", "Kapasitas", "Jumlah Mahasiswa", "Kode Matakuliah", "Nama Dosen"
+                "Id", "Nama Kelas", "Kapasitas", "Jumlah Mahasiswa", "Nama Matakuliah", "Nama Dosen"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTableKelas);
