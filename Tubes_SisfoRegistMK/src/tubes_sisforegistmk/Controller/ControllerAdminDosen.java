@@ -82,9 +82,7 @@ public class ControllerAdminDosen implements ActionListener{
             Dosen d = model.getDosen(nik);
             new ControllerAdminDosenCreate(model,d);
         }
-        else if(obj.equals(view.getjTextFieldCari())){
-            
-        }
+        
         else if(obj.equals(view.getjButtonHome())){
             view.dispose();
             

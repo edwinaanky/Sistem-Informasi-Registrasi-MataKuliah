@@ -79,9 +79,7 @@ public class ControllerAdminKelas implements ActionListener{
             Kelas k = model.getKelasByid(Integer.parseInt(nika));
             new ControllerAdminKelasCreate(model,k);
         }
-        else if(obj.equals(view.getjTextFieldCari())){
-            
-        }
+        
         else if(obj.equals(view.getjButtonHome())){
             view.dispose();
             

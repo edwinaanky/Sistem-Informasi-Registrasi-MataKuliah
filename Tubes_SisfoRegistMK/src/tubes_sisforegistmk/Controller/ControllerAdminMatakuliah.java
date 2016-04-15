@@ -79,9 +79,7 @@ public class ControllerAdminMatakuliah implements ActionListener {
             
             Matakuliah d = model.getMatakuliah(nika);
             new ControllerAdminMatakuliahCreate(model, d);
-        } else if (obj.equals(view.getjTextFieldCari())) {
-
-        } else if (obj.equals(view.getjButtonHome())) {
+        }  else if (obj.equals(view.getjButtonHome())) {
             view.dispose();
             
         }

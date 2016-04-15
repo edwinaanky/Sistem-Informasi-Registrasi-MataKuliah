@@ -38,8 +38,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         jButtonUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDosen = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldCari = new javax.swing.JTextField();
         jButtonDelete = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
 
@@ -83,8 +81,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableDosen);
 
-        jLabel1.setText("Cari :");
-
         jButtonDelete.setText("Delete");
 
         jButtonHome.setText("Home");
@@ -95,42 +91,31 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonCreate))
+                .addGap(160, 160, 160)
+                .addComponent(jButtonCreate)
                 .addGap(119, 119, 119)
                 .addComponent(jButtonUpdate)
                 .addGap(112, 112, 112)
                 .addComponent(jButtonDelete)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonHome)
-                .addGap(63, 63, 63))
+                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCreate)
-                    .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonCreate)
+                            .addComponent(jButtonUpdate)
+                            .addComponent(jButtonDelete)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jButtonHome)))
+                .addGap(84, 84, 84)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -200,13 +185,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         this.jButtonUpdate = jButtonUpdate;
     }
 
-    public JLabel getjLabel1() {
-        return jLabel1;
-    }
-
-    public void setjLabel1(JLabel jLabel1) {
-        this.jLabel1 = jLabel1;
-    }
 
     public JScrollPane getjScrollPane1() {
         return jScrollPane1;
@@ -224,14 +202,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         this.jTableDosen = jTableDosen;
     }
 
-    public JTextField getjTextFieldCari() {
-        return jTextFieldCari;
-    }
-
-    public void setjTextFieldCari(JTextField jTextFieldCari) {
-        this.jTextFieldCari = jTextFieldCari;
-    }
-
     public JButton getjButtonHome() {
         return jButtonHome;
     }
@@ -245,7 +215,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         jButtonDelete.addActionListener(al);
         jButtonUpdate.addActionListener(al);
         jButtonHome.addActionListener(al);
-        jTextFieldCari.addActionListener(al);
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -253,9 +222,7 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDosen;
-    private javax.swing.JTextField jTextFieldCari;
     // End of variables declaration//GEN-END:variables
 }

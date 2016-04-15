@@ -55,16 +55,16 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(358, 358, 358)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addGap(300, 300, 300)
                 .addComponent(jButtonKeluar)
-                .addGap(53, 53, 53))
+                .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
+                .addGap(219, 219, 219)
                 .addComponent(jButtonTambah)
-                .addGap(70, 70, 70)
-                .addComponent(jButtonLihat)
+                .addGap(112, 112, 112)
+                .addComponent(jButtonLihat, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,11 +76,11 @@ public class DashboardMahasiswa extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2))
                     .addComponent(jButtonKeluar))
-                .addGap(137, 137, 137)
+                .addGap(107, 107, 107)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonTambah)
-                    .addComponent(jButtonLihat))
-                .addContainerGap(383, Short.MAX_VALUE))
+                    .addComponent(jButtonLihat, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         pack();

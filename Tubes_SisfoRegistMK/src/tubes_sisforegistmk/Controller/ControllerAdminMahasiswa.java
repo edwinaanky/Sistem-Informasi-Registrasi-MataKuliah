@@ -79,9 +79,7 @@ public class ControllerAdminMahasiswa implements ActionListener {
             nik = Long.parseLong(nika);
             Mahasiswa d = model.getMahasiswa(nik);
             new ControllerAdminMahasiswaCreate(model, d);
-        } else if (obj.equals(view.getjTextFieldCari())) {
-
-        } else if (obj.equals(view.getjButtonHome())) {
+        }  else if (obj.equals(view.getjButtonHome())) {
             view.dispose();
             
         }

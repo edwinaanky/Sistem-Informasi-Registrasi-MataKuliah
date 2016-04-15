@@ -37,8 +37,6 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
         jButtonCreate = new javax.swing.JButton();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldCari = new javax.swing.JTextField();
         jButtonHome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,8 +75,6 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
 
         jButtonDelete.setText("Delete");
 
-        jLabel1.setText("Cari : ");
-
         jButtonHome.setText("Home");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -86,16 +82,8 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(138, 138, 138)
@@ -117,13 +105,9 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
                     .addComponent(jButtonUpdate)
                     .addComponent(jButtonDelete)
                     .addComponent(jButtonHome))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,19 +153,12 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
         this.jTableMahasiswa = jTableMahasiswa;
     }
 
-    public JTextField getjTextFieldCari() {
-        return jTextFieldCari;
-    }
 
-    public void setjTextFieldCari(JTextField jTextFieldCari) {
-        this.jTextFieldCari = jTextFieldCari;
-    }
     public void addActionListener(ActionListener al){
         jButtonCreate.addActionListener(al);
         jButtonDelete.addActionListener(al);
         jButtonUpdate.addActionListener(al);
         jButtonHome.addActionListener(al);
-        jTextFieldCari.addActionListener(al);
         
     }
     /**
@@ -194,9 +171,7 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMahasiswa;
-    private javax.swing.JTextField jTextFieldCari;
     // End of variables declaration//GEN-END:variables
 }
