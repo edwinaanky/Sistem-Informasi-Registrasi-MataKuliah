@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubes_sisforegistmk;
+package tubes_sisforegistmk.Model;
 
 import java.io.Serializable;
 

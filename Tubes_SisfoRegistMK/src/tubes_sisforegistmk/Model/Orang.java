@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubes_sisforegistmk;
+package tubes_sisforegistmk.Model;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author desmoncode
  */
 public abstract class Orang implements Serializable{
+    private int id;
   private String name;
     private String jenisKelamin;
     private String alamat;
@@ -59,6 +60,14 @@ public abstract class Orang implements Serializable{
 
     public void setTelepon(String telepon) {
         this.telepon = telepon;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

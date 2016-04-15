@@ -5,8 +5,12 @@
  */
 package tubes_sisforegistmk;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import tubes_sisforegistmk.*;
+import tubes_sisforegistmk.Controller.ControllerLogin;
 /**
  *
  * @author desmoncode
@@ -14,8 +18,12 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Aplikasi app = new Aplikasi();
-        app.mainMenu();
+//        Aplikasi apps = new Aplikasi();
+//        apps.mainMenu();
+//        apps.createFile();
+        new ControllerLogin();
+        
+
 
     }
 }
