@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author desmoncode
  */
 public class Kelas implements Serializable{
-
+    private int id;
     private String namaKelas;
     private Matakuliah matakuliah;
     private Dosen dosen;
@@ -24,6 +24,14 @@ public class Kelas implements Serializable{
         this.maxMhs = maxMhs;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setMatakuliah(Matakuliah m) {
         matakuliah = m;
     }

@@ -40,7 +40,7 @@ public class ControllerAdmin implements ActionListener{
             
         }
         else if(obj.equals(view.getjButtonKelas())){
-            
+            new ControllerAdminKelas(view.getjLabelWelcome().getText(),model);
         }
         else if(obj.equals(view.getjButtonKeluar())){
             new ControllerLogin();

@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 package tubes_sisforegistmk.Controller;
-import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
-import tubes_sisforegistmk.View.*;
+
 /**
  *
  * @author desmoncode
  */
-public class ControllerAdminMahasiswa implements ActionListener{
+public class ControllerAdminMahasiswaCreate implements ActionListener{
     
 }

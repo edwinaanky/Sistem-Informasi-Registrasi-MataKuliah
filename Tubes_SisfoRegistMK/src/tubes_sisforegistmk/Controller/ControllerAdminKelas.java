@@ -6,11 +6,86 @@
 package tubes_sisforegistmk.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import tubes_sisforegistmk.Model.Application;
+import tubes_sisforegistmk.Model.Kelas;
 import tubes_sisforegistmk.View.*;
 /**
  *
  * @author desmoncode
  */
-public class ControllerAdminKelas {
+public class ControllerAdminKelas implements ActionListener{
+private Application model;
+    private AdminKelolaKelas view;
+    String name;
+    ArrayList<Kelas> daftarKelas = null;
+    
+    public ControllerAdminKelas(String nama,Application model) {
+        this.model = model;
+        view = new AdminKelolaKelas();
+        view.setVisible(true);
+        view.addActionListener(this);
+        this.name = nama;
+        view.setTitle("Kelola Kelas");
+        this.daftarKelas = model.getDaftarKelas();
+        DefaultTableModel tmodel = (DefaultTableModel) view.getjTableKelas().getModel();
+        for(Kelas k : daftarKelas){
+            Object[] row = {k.getNamaKelas(),k.getJmlMhs(),k.getMaxMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
+            tmodel.addRow(row);
+        }
+        
+        
+        
+    }
+    public ControllerAdminKelas(Application model) {
+        this.model = model;
+        view = new AdminKelolaKelas();
+        view.setVisible(true);
+        view.addActionListener(this);
+        view.setTitle("Kelola Kelas");
+        this.daftarKelas = model.getDaftarKelas();
+        DefaultTableModel tmodel = (DefaultTableModel) view.getjTableKelas().getModel();
+        for(Kelas k : daftarKelas){
+            Object[] row = {k.getNamaKelas(),k.getJmlMhs(),k.getMaxMhs(),k.getDosen().getName(),k.getMatakuliah().getNamaMatkul()};
+            tmodel.addRow(row);
+        }
+    }
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        Object obj = ae.getSource();
+        if(obj.equals(view.getjButtonCreate())){
+            new ControllerAdminKelasCreate(model);
+            view.dispose();
+        }
+        else if(obj.equals(view.getjButtonDelete())){
+            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Kelas", "Update",JOptionPane.QUESTION_MESSAGE);
+            long nik = Long.parseLong(nika);
+            Kelas k = model.getKelas(id);
+            if(!d.equals(null)){
+                int pil=JOptionPane.showConfirmDialog(view, "Apakah yakin untuk menghapus ?", "Confirm delete", JOptionPane.YES_NO_OPTION);
+                if(pil==0){
+                    model.deleteDosen(d);
+                    JOptionPane.showMessageDialog(view, "Berhasil Dihapus","Success",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }
+        else if(obj.equals(view.getjButtonUpdate())){
+            long nik;
+            Object nikk = new Object();
+            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Dosen", "Update",JOptionPane.QUESTION_MESSAGE);
+            nik = Long.parseLong(nika);
+            Dosen d = model.getDosen(nik);
+            new ControllerAdminDosenCreate(model,d);
+        }
+        else if(obj.equals(view.getjTextFieldCari())){
+            
+        }
+        else if(obj.equals(view.getjButtonHome())){
+            view.dispose();
+            ControllerAdmin ad = new ControllerAdmin(name);
+        }
+    }
     
 }

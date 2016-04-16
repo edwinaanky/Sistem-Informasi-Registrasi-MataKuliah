@@ -75,6 +75,7 @@ public class Database {
                     String mahasiswaJurusan = result.getString("jurusan");               
                     String mahasiwaUsername = result.getString("username");
                     String mahasiswaPassword = result.getString("password");
+                    
                     int orangId = result.getInt("id_orang");
 
                     result = statement.executeQuery("select * from orang where id = " + orangId);
@@ -85,7 +86,8 @@ public class Database {
                         String orangJenisKelamin = result.getString("jeniskelamin");
                         String orangAlamat = result.getString("alamat");
                         String orangTelepon = result.getString("telepon");
-                        mahasiswa = new Mahasiswa(mahasiswaNim,mahasiswaMaxSks,mahasiwaUsername,mahasiswaPassword,orangName,orangJenisKelamin,orangAlamat,orangTelepon);
+                        
+                        mahasiswa = new Mahasiswa(mahasiswaNim,mahasiswaMaxSks,mahasiwaUsername,mahasiswaPassword,orangName,orangJenisKelamin,orangAlamat,orangTelepon,mahasiswaJurusan,mahasiswaSemester);
 
                     }
                 }
@@ -263,6 +265,203 @@ public class Database {
         String query="delete from matakuliah where kode='"+m.getKode()+"'";
         try {
             statement.execute(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void insert_kelas(Kelas k){
+        Kelas ks = k;
+        ResultSet rs = null;
+        String query = "insert into kelas values("
+                +"'"+ks.getNamaKelas()+"',"
+                +ks.getMaxMhs()+","
+                +0+","
+                +"'"+ks.getMatakuliah().getKode()+"',"
+                +ks.getDosen().getNik()+")";   
+        
+        try {
+            statement.execute(query,Statement.RETURN_GENERATED_KEYS);
+            rs = statement.getGeneratedKeys();
+            int generatedId = -1;
+            if(rs.next()){
+                generatedId = rs.getInt(1);
+            }
+            ks.setId(generatedId);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void update_kelas(Kelas k){
+        Kelas ks = k;
+        
+        String query = "update kelas set namakelas='"+ks.getNamaKelas()+"',"
+                +"maxmhs="+ks.getMaxMhs()+","
+                +"jmlmhs="+ks.getJmlMhs()+","
+                +"id_matkul="+ks.getMatakuliah().getKode()+","
+                +"id_dosen="+ks.getDosen().getNik()
+                +" where id="+ks.getId();
+        
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<Kelas> getAllKelas(){
+        ArrayList<Kelas> daftarKelas = new ArrayList();
+        ResultSet rs = null;
+        String query = "select namakelas,maxmhs,jmlmhs,id_matkul,id_dosen from kelas";
+        try{
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                Kelas k = new Kelas(rs.getString(2), rs.getInt(2));
+                Dosen d = getDosen(rs.getInt(5));
+                Matakuliah m = getMatakuliah(rs.getString(4));
+                k.setDosen(d);
+                k.setMatakuliah(m);
+                daftarKelas.add(k);
+            }
+        } catch(Exception e){
+            System.out.println("Error load all");
+            e.printStackTrace();
+        }
+        return daftarKelas;
+    }
+    
+    public Kelas getKelas(int id){
+        Kelas k = null;
+        ResultSet rs = null;
+        String query = "select namakelas,maxmhs,jmlmhs,id_matkul,id_dosen from kelas "
+                + "where id = "+id;
+        try {
+            rs=statement.executeQuery(query);
+            while(rs.next()){
+                k = new Kelas(rs.getString(2), rs.getInt(2));
+                Dosen d = getDosen(rs.getInt(5));
+                Matakuliah m = getMatakuliah(rs.getString(4));
+                k.setDosen(d);
+                k.setMatakuliah(m);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return k;
+    }
+    
+    public void deleteKelas(Kelas k){
+        String query="delete from kelas where kode="+k.getId();
+        try {
+            statement.execute(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void insert_orang_mahasiswa(Mahasiswa m){
+        Mahasiswa mhs = m;
+        ResultSet rs = null;
+        String query1 = "insert into orang (nama,jeniskelamin,alamat,telepon) values("
+                +"'"+mhs.getName()+"',"
+                +"'"+mhs.getJenisKelamin()+"',"
+                +"'"+mhs.getAlamat()+"',"
+                +"'"+mhs.getTelepon()+"')";
+        String query2 = null;
+        try {
+            statement.execute(query1,Statement.RETURN_GENERATED_KEYS);
+            rs = statement.getGeneratedKeys();
+            int generatedId = -1;
+            if(rs.next()){
+                generatedId = rs.getInt(1);
+            }
+            mhs.setId(generatedId);
+            query2 = "insert into mahasiswa values("
+                +mhs.getNim()+","
+                +0+","
+                +mhs.getMaxSks()+","
+                +0+","
+                +"'"+mhs.getUsernameMhs()+","
+                +"'"+mhs.getPasswordMhs()+","
+                +mhs.getSemester()+"',"
+                +"'"+mhs.getJurusan()+"',"
+                +mhs.getId()+")";
+            statement.execute(query2);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void update_orang_mahasiswa(Mahasiswa m){
+        Mahasiswa mhs = m;
+        ResultSet rs = null;
+        String query1 = "update orang set nama='"+mhs.getName()+"',"
+                +"jeniskelamin='"+mhs.getJenisKelamin()+"',"
+                +"alamat='"+mhs.getAlamat()+"',"
+                +"telepon='"+mhs.getTelepon()+"' "
+                +"where id="+mhs.getId();
+        String query2 = "update mahasiswa set nim="+mhs.getNim()+","
+                +"maxsks="+mhs.getMaxSks()+","
+                +"username='"+mhs.getUsernameMhs()+"',"
+                +"password='"+mhs.getPasswordMhs()+"',"
+                +"semester="+mhs.getSemester()+","
+                +"jurusan='"+mhs.getJurusan()+"',"
+                +"id_orang="+mhs.getId()
+                +" where nim="+mhs.getNim();
+        try {
+            statement.executeUpdate(query1);
+            statement.executeUpdate(query2);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<Mahasiswa> getAllMahasiswa(){
+        ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList();
+        ResultSet rs = null;
+        String query = "select m.nim,m.maxsks,m.username,m.password,o.nama,o.jeniskelamin,o.alamat,o.telepon,m.jurusan,m.semester,o.id "
+                + "from orang as o, mahasiswa as m "
+                + "where o.id=m.id_orang";
+        try{
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                Mahasiswa m = new Mahasiswa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+                m.setId(rs.getInt(11));
+                daftarMahasiswa.add(m);
+            }
+        } catch(Exception e){
+            System.out.println("Error load all");
+            e.printStackTrace();
+        }
+        return daftarMahasiswa;
+    }
+    
+    public Mahasiswa getMahasiswa(long nim){
+        Mahasiswa mhs = null;
+        ResultSet rs = null;
+        String query = "select m.nim,m.maxsks,m.username,m.password,o.nama,o.jeniskelamin,o.alamat,o.telepon,m.jurusan,m.semester,o.id "
+                + "from orang as o, mahasiswa as m "
+                + "where o.id=m.id_orang and "
+                + "nim="+nim;
+        try {
+            rs=statement.executeQuery(query);
+            while(rs.next()){
+                mhs= new Mahasiswa(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+                mhs.setId(rs.getInt(11));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mhs;
+    }
+    
+    public void deleteMahasiswa(Mahasiswa mhs){
+        String query="delete from mahasiswa where nim="+mhs.getNim();
+        String query1="delete from orang where id="+mhs.getId();
+        try {
+            statement.execute(query);
+            statement.execute(query1);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

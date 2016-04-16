@@ -24,18 +24,28 @@ public class Mahasiswa extends Orang implements Serializable {
     private int semester;
     private String jurusan;
 
-    public Mahasiswa(long nim, int maxSks, String usernameMhs, String passwordMhs, String name, String jenisKelamin, String alamat, String telepon) {
+    public Mahasiswa(long nim, int maxSks, String usernameMhs, String passwordMhs, String name, String jenisKelamin, String alamat, String telepon, String jurusan, int semester) {
         super(name, jenisKelamin, alamat, telepon);
         this.nim = nim;
         this.maxSks = maxSks;
         this.usernameMhs = usernameMhs;
         this.passwordMhs = passwordMhs;
-    }
+        this.jurusan = jurusan;
+        this.semester = semester;
+    }   
 
     public Mahasiswa() {
         super();
     }
 
+    public String getJurusan() {
+        return jurusan;
+    }
+
+    public void setJurusan(String jurusan) {
+        this.jurusan = jurusan;
+    }
+    
     public String getUsernameMhs() {
         return usernameMhs;
     }

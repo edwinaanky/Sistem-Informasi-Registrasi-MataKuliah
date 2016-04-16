@@ -5,6 +5,11 @@
  */
 package tubes_sisforegistmk.View;
 
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author desmoncode
@@ -48,15 +53,23 @@ public class AdminKelolaKelas extends javax.swing.JFrame {
 
         jTableKelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nama Kelas", "Kapasitas", "Jumlah Mahasiswa", "Kode Matakuliah", "Nama Dosen"
+                "Id", "Nama Kelas", "Kapasitas", "Jumlah Mahasiswa", "Kode Matakuliah", "Nama Dosen"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableKelas);
 
         jButtonHome.setText("Home");
@@ -114,40 +127,67 @@ public class AdminKelolaKelas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getjButtonCreate() {
+        return jButtonCreate;
+    }
+
+    public void setjButtonCreate(JButton jButtonCreate) {
+        this.jButtonCreate = jButtonCreate;
+    }
+
+    public JButton getjButtonDelete() {
+        return jButtonDelete;
+    }
+
+    public void setjButtonDelete(JButton jButtonDelete) {
+        this.jButtonDelete = jButtonDelete;
+    }
+
+    public JButton getjButtonHome() {
+        return jButtonHome;
+    }
+
+    public void setjButtonHome(JButton jButtonHome) {
+        this.jButtonHome = jButtonHome;
+    }
+
+    public JButton getjButtonUpdate() {
+        return jButtonUpdate;
+    }
+
+    public void setjButtonUpdate(JButton jButtonUpdate) {
+        this.jButtonUpdate = jButtonUpdate;
+    }
+
+    public JTable getjTableKelas() {
+        return jTableKelas;
+    }
+
+    public void setjTableKelas(JTable jTableKelas) {
+        this.jTableKelas = jTableKelas;
+    }
+
+    public JTextField getjTextFieldCari() {
+        return jTextFieldCari;
+    }
+
+    public void setjTextFieldCari(JTextField jTextFieldCari) {
+        this.jTextFieldCari = jTextFieldCari;
+    }
+    
+    
+    public void addActionListener(ActionListener al){
+        jButtonCreate.addActionListener(al);
+        jButtonDelete.addActionListener(al);
+        jButtonUpdate.addActionListener(al);
+        jButtonHome.addActionListener(al);
+        jTextFieldCari.addActionListener(al);
+        
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminKelolaKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminKelolaKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminKelolaKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminKelolaKelas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminKelolaKelas().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreate;

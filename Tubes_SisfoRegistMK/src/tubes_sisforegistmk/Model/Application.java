@@ -176,4 +176,58 @@ public class Application {
         deleteMatakuliah(non);
         connection.deleteMatakuliah(m);
     }
+    
+    public void createKelas(String nama, int maxmhs, Dosen d, Matakuliah m) {
+        Kelas k = new Kelas(nama, maxmhs);
+        k.setDosen(d);
+        k.setMatakuliah(m);
+        addKelas(k);
+        connection.insert_kelas(k);
+    }
+
+    public void updateKelas(Kelas k, int id) {
+        int no = 0;
+        int non = 0;
+        for (Kelas list1 : daftarKelas) {
+            no++;
+            if (list1.getId() == id) {
+                non = no;
+            }
+        }
+        daftarKelas.get(non).setNamaKelas(k.getNamaKelas());
+        
+        daftarKelas.get(non).setMaxMhs(k.getMaxMhs());
+        daftarKelas.get(non).setDosen(k.getDosen());
+        daftarKelas.get(non).setMatakuliah(k.getMatakuliah());
+        
+        
+        connection.update_kelas(k);
+    }
+
+    public ArrayList<Kelas> getDaftarKelas() {
+        return connection.getAllKelas();
+    }
+
+    public Kelas getKelasByid(int id) {
+        for (Kelas k : daftarKelas) {
+            if (k.getId() == id) {
+                return k;
+            }
+        }
+        Kelas k = connection.getKelas(id);
+        return k;
+    }
+
+    public void deleteKelas(Kelas k) {
+        int no = 0;
+        int non = 0;
+        for (Kelas list1 : daftarKelas) {
+            no++;
+            if (list1 == k) {
+                non = no;
+            }
+        }
+        deleteKelas(non);
+        connection.deleteKelas(k);
+    }
 }

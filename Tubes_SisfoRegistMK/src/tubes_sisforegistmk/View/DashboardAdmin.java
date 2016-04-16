@@ -40,7 +40,6 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jLabelWelcome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(883, 582));
         setResizable(false);
 
         jLabel1.setText("Administrator");
@@ -82,7 +81,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
                 .addComponent(jButtonKelas)
                 .addGap(52, 52, 52)
                 .addComponent(jButtonMatakuliah)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

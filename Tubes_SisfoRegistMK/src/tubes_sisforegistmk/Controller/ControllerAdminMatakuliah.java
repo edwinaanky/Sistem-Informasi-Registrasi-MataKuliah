@@ -38,7 +38,6 @@ public class ControllerAdminMatakuliah implements ActionListener {
             Object[] row = {m.getKode(),m.getNamaMatkul(),m.getSks()};
             tmodel.addRow(row);
         }
-
     }
 
     public ControllerAdminMatakuliah(Application model) {
