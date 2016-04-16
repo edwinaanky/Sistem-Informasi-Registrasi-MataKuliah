@@ -42,6 +42,7 @@ public class ControllerAdminDosenCreate implements ActionListener {
         view.getjTextFieldNama().setText(d.getName());
         String nik = Long.toString(d.getNik());
         view.getjTextFieldNik().setText(nik);
+        view.setTitle("Edit Dosen");
         view.getjTextFieldTelepon().setText(d.getTelepon());
         if (d.getJenisKelamin().equals("pria")) {
             view.getjRadioButtonPria().doClick();
@@ -52,7 +53,7 @@ public class ControllerAdminDosenCreate implements ActionListener {
             view.getjRadioButtonTetap().doClick();
         } else if (d.getStatus().equals("honorer")) {
             view.getjRadioButtonHonorer().doClick();
-            view.setTitle("Edit Dosen");
+            
         }
 
     }
@@ -88,13 +89,13 @@ public class ControllerAdminDosenCreate implements ActionListener {
                     view.getjTextFieldTelepon().setText("");
 
                 } else {
-                    d.setName(view.getjTextFieldNama().toString());
-                    d.setAlamat(view.getjTextAreaAlamat().toString());
+                    d.setName(view.getjTextFieldNama().getText());
+                    d.setAlamat(view.getjTextAreaAlamat().getText());
                     d.setJenisKelamin(jk);
                     d.setStatus(status);
                     d.setKk(view.getjComboBoxKK().getSelectedItem().toString());
                     d.setNik(nikk);
-                    d.setTelepon(view.getjTextFieldTelepon().toString());
+                    d.setTelepon(view.getjTextFieldTelepon().getText());
                     model.updateDosen(d, nikk);
                 }
 //                d = new Dosen(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());

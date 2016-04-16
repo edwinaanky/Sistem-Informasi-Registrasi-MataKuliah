@@ -45,7 +45,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldNik = new javax.swing.JTextField();
+        jTextFieldNim = new javax.swing.JTextField();
         jTextFieldNama = new javax.swing.JTextField();
         jRadioButtonPria = new javax.swing.JRadioButton();
         jRadioButtonWanita = new javax.swing.JRadioButton();
@@ -63,7 +63,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("NIK");
+        jLabel1.setText("NIM");
 
         jLabel2.setText("Nama");
 
@@ -140,7 +140,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
                                 .addComponent(jRadioButtonPria)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButtonWanita))
-                            .addComponent(jTextFieldNik, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNim, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNama, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -173,7 +173,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
                 .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldNik, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -302,12 +302,12 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
         this.jTextFieldNama = jTextFieldNama;
     }
 
-    public JTextField getjTextFieldNik() {
-        return jTextFieldNik;
+    public JTextField getjTextFieldNim() {
+        return jTextFieldNim;
     }
 
-    public void setjTextFieldNik(JTextField jTextFieldNik) {
-        this.jTextFieldNik = jTextFieldNik;
+    public void setjTextFieldNim(JTextField jTextFieldNim) {
+        this.jTextFieldNim = jTextFieldNim;
     }
 
     public JTextField getjTextFieldPassword() {
@@ -377,7 +377,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaAlamat;
     private javax.swing.JTextField jTextFieldNama;
-    private javax.swing.JTextField jTextFieldNik;
+    private javax.swing.JTextField jTextFieldNim;
     private javax.swing.JTextField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldSks;
     private javax.swing.JTextField jTextFieldTelepon;

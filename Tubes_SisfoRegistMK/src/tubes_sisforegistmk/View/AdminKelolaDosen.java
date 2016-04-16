@@ -42,7 +42,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
         jTextFieldCari = new javax.swing.JTextField();
         jButtonDelete = new javax.swing.JButton();
         jButtonHome = new javax.swing.JButton();
-        jLabelWelcome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -83,43 +82,39 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
 
         jButtonHome.setText("Home");
 
-        jLabelWelcome.setText("Selamat Datang,");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(82, 82, 82)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButtonHome)
-                        .addGap(110, 110, 110)
-                        .addComponent(jButtonCreate)
-                        .addGap(44, 44, 44)
-                        .addComponent(jButtonUpdate)))
-                .addGap(47, 47, 47)
+                    .addComponent(jButtonCreate))
+                .addGap(119, 119, 119)
+                .addComponent(jButtonUpdate)
+                .addGap(112, 112, 112)
                 .addComponent(jButtonDelete)
-                .addGap(150, 150, 150)
-                .addComponent(jLabelWelcome)
-                .addContainerGap(82, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonHome)
+                .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
+                .addComponent(jButtonHome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCreate)
                     .addComponent(jButtonUpdate)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButtonHome)
-                    .addComponent(jLabelWelcome))
+                    .addComponent(jButtonDelete))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
@@ -129,7 +124,7 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jTextFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,7 +247,6 @@ public class AdminKelolaDosen extends javax.swing.JFrame {
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelWelcome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDosen;
     private javax.swing.JTextField jTextFieldCari;

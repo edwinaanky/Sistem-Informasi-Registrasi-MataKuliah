@@ -230,4 +230,62 @@ public class Application {
         deleteKelas(non);
         connection.deleteKelas(k);
     }
+    
+    public void createMahasiswa(long nim, int maxSks, String usernameMhs, String passwordMhs, String name, String jenisKelamin, String alamat, String telepon, String jurusan, int semester) {
+        
+        Mahasiswa mhs = new Mahasiswa(nim, maxSks, usernameMhs, passwordMhs, name, jenisKelamin, alamat, telepon, jurusan, semester);
+        addMahasiswa(mhs);
+        connection.insert_orang_mahasiswa(mhs);
+    }
+
+    public void updateMahasiswa(Mahasiswa mhs, long nim) {
+        int no = 0;
+        int non = 0;
+        for (Mahasiswa list1 : daftarMahasiswa) {
+            no++;
+            if (list1.getNim() == nim) {
+                non = no;
+            }
+        }
+        daftarMahasiswa.get(non).setAlamat(mhs.getAlamat());
+        daftarMahasiswa.get(non).setJenisKelamin(mhs.getJenisKelamin());
+        daftarMahasiswa.get(non).setJumlahKelas(mhs.getJumlahKelas());
+        daftarMahasiswa.get(non).setJumlahSks(mhs.getJumlahSks());
+        daftarMahasiswa.get(non).setJurusan(mhs.getJurusan());
+        daftarMahasiswa.get(non).setMaxSks(mhs.getMaxSks());
+        daftarMahasiswa.get(non).setName(mhs.getName());
+        daftarMahasiswa.get(non).setNim(mhs.getNim());
+        daftarMahasiswa.get(non).setPasswordMhs(mhs.getPasswordMhs());
+        daftarMahasiswa.get(non).setSemester(mhs.getSemester());
+        daftarMahasiswa.get(non).setTelepon(mhs.getTelepon());
+        daftarMahasiswa.get(non).setUsernameMhs(mhs.getUsernameMhs());
+        connection.update_orang_mahasiswa(mhs);
+    }
+
+    public ArrayList<Mahasiswa> getDaftarMahasiswa() {
+        return connection.getAllMahasiswa();
+    }
+
+    public Mahasiswa getMahasiswa(long nim) {
+        for (Mahasiswa mhs : daftarMahasiswa) {
+            if (mhs.getNim() == nim) {
+                return mhs;
+            }
+        }
+        Mahasiswa mhs = connection.getMahasiswa(nim);
+        return mhs;
+    }
+
+    public void deleteMahasiswa(Mahasiswa mhs) {
+        int no = 0;
+        int non = 0;
+        for (Mahasiswa list1 : daftarMahasiswa) {
+            no++;
+            if (list1 == mhs) {
+                non = no;
+            }
+        }
+        deleteMahasiswa(non);
+        connection.deleteMahasiswa(mhs);
+    }
 }

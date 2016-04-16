@@ -59,7 +59,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabelWelcome.setText("Selamat datang,");
+        jLabelWelcome.setText("Selamat Datang");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

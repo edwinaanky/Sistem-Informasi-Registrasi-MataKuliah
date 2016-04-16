@@ -273,7 +273,7 @@ public class Database {
     public void insert_kelas(Kelas k){
         Kelas ks = k;
         ResultSet rs = null;
-        String query = "insert into kelas values("
+        String query = "insert into kelas (namakelas,maxmhs,jmlmhs,id_matkul,id_dosen) values("
                 +"'"+ks.getNamaKelas()+"',"
                 +ks.getMaxMhs()+","
                 +0+","
@@ -317,9 +317,11 @@ public class Database {
         try{
             rs = statement.executeQuery(query);
             while(rs.next()){
+                
                 Kelas k = new Kelas(rs.getString(2), rs.getInt(2));
-                Dosen d = getDosen(rs.getInt(5));
+                
                 Matakuliah m = getMatakuliah(rs.getString(4));
+                Dosen d = getDosen(rs.getLong(5));
                 k.setDosen(d);
                 k.setMatakuliah(m);
                 daftarKelas.add(k);

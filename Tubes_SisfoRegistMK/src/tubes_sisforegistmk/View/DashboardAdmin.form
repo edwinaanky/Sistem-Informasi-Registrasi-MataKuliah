@@ -106,7 +106,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelWelcome">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Selamat datang,"/>
+        <Property name="text" type="java.lang.String" value="Selamat Datang"/>
       </Properties>
     </Component>
   </SubComponents>

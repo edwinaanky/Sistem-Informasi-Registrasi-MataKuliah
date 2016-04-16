@@ -78,14 +78,6 @@ public class Mahasiswa extends Orang implements Serializable {
         this.nim = nim;
     }
 
-    public int getMaxsks() {
-        return maxSks;
-    }
-
-    public void setMaxsks(int maxSks) {
-        this.maxSks = maxSks;
-    }
-
     public void addKelas(Kelas k) {
         pilihan.add(k);
 

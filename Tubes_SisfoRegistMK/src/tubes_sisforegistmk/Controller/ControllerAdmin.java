@@ -47,7 +47,7 @@ public class ControllerAdmin implements ActionListener{
             view.dispose();
         }
         else if(obj.equals(view.getjButtonMahasiswa())){
-            
+            new ControllerAdminMahasiswa(view.getjLabelWelcome().getText(),model);
         }
         else if(obj.equals(view.getjButtonMatakuliah())){
             new ControllerAdminMatakuliah(view.getjLabelWelcome().getText(),model);

@@ -53,7 +53,7 @@ public class ControllerLogin implements ActionListener {
                 if (mahasiswa == null && admin != null) {
 //                    System.out.println(db.getAllDosen().get(0).getNik());
                     JOptionPane.showMessageDialog(l, "Selamat Datang Administrator " + admin.getName(), "Admin", JOptionPane.INFORMATION_MESSAGE);
-                    ControllerAdmin ca = new ControllerAdmin(admin.getName());
+                    ControllerAdmin ca = new ControllerAdmin();
                     l.dispose();
 
                 } else if (admin == null && mahasiswa != null) {

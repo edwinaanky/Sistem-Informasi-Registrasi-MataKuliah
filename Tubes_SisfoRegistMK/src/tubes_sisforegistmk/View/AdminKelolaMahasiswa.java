@@ -53,7 +53,15 @@ public class AdminKelolaMahasiswa extends javax.swing.JFrame {
             new String [] {
                 "NIM", "Nama", "Jenis Kelamin", "Jumlah SKS", "SKS Maksimal", "Jumlah Kelas", "Semester", "Jurusan", "Username", "Password", "Alamat", "Telepon"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableMahasiswa);
 
         jButtonCreate.setText("Create");

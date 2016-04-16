@@ -87,7 +87,7 @@ public class ControllerAdminDosen implements ActionListener{
         }
         else if(obj.equals(view.getjButtonHome())){
             view.dispose();
-            ControllerAdmin ad = new ControllerAdmin(name);
+            
         }
     }
     
