@@ -132,12 +132,12 @@ public class Database {
         String query1 = "update orang set nama='"+d.getName()+"',"
                 +"jeniskelamin='"+d.getJenisKelamin()+"',"
                 +"alamat='"+d.getAlamat()+"',"
-                +"telepon='"+d.getTelepon()+"'"
+                +"telepon='"+d.getTelepon()+"' "
                 +"where id="+d.getId();
         String query2 = "update dosen set kk='"+d.getKk()+"',"
                 +"status='"+d.getStatus()+"',"
                 +"id_orang="+d.getId()
-                +"where nik="+d.getNik();
+                +" where nik="+d.getNik();
         try {
             statement.executeUpdate(query1);
             statement.executeUpdate(query2);
@@ -183,5 +183,88 @@ public class Database {
             ex.printStackTrace();
         }
         return d;
+    }
+    
+    public void deleteDosen(Dosen d){
+        String query="delete from dosen where nik="+d.getNik();
+        String query1="delete from orang where id="+d.getId();
+        try {
+            statement.execute(query);
+            statement.execute(query1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void insert_matakuliah(Matakuliah m){
+        Matakuliah mk = m;
+        ResultSet rs = null;
+        String query = "insert into matakuliah values("
+                +"'"+mk.getKode()+"',"
+                +"'"+mk.getNamaMatkul()+"',"
+                +mk.getSks()+")";
+        
+        try {
+            statement.execute(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void update_matakuliah(Matakuliah m){
+        Matakuliah mk = m;
+        
+        String query = "update matakuliah set kode='"+m.getKode()+"',"
+                +"nama='"+m.getNamaMatkul()+"',"
+                +"sks="+m.getSks()
+                +" where kode='"+m.getKode()+"'";
+        
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public ArrayList<Matakuliah> getAllMatakuliah(){
+        ArrayList<Matakuliah> daftarMatakuliah = new ArrayList();
+        ResultSet rs = null;
+        String query = "select * from matakuliah";
+        try{
+            rs = statement.executeQuery(query);
+            while(rs.next()){
+                Matakuliah m = new Matakuliah(rs.getString(1), rs.getString(2), rs.getInt(3));
+                daftarMatakuliah.add(m);
+            }
+        } catch(Exception e){
+            System.out.println("Error load all");
+            e.printStackTrace();
+        }
+        return daftarMatakuliah;
+    }
+    
+    public Matakuliah getMatakuliah(String kode){
+        Matakuliah m = null;
+        ResultSet rs = null;
+        String query = "select * from matakuliah "
+                + "where kode = '"+kode+"'";
+        try {
+            rs=statement.executeQuery(query);
+            while(rs.next()){
+                m = new Matakuliah(rs.getString(1), rs.getString(2), rs.getInt(3));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return m;
+    }
+    
+    public void deleteMatakuliah(Matakuliah m){
+        String query="delete from matakuliah where kode='"+m.getKode()+"'";
+        try {
+            statement.execute(query);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -63,7 +63,16 @@ public class ControllerAdminDosen implements ActionListener{
             view.dispose();
         }
         else if(obj.equals(view.getjButtonDelete())){
-            
+            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Dosen", "Update",JOptionPane.QUESTION_MESSAGE);
+            long nik = Long.parseLong(nika);
+            Dosen d = model.getDosen(nik);
+            if(!d.equals(null)){
+                int pil=JOptionPane.showConfirmDialog(view, "Apakah yakin untuk menghapus ?", "Confirm delete", JOptionPane.YES_NO_OPTION);
+                if(pil==0){
+                    model.deleteDosen(d);
+                    JOptionPane.showMessageDialog(view, "Berhasil Dihapus","Success",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
         else if(obj.equals(view.getjButtonUpdate())){
             long nik;

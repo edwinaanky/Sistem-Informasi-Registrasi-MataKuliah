@@ -4,19 +4,22 @@
  * and open the template in the editor.
  */
 package tubes_sisforegistmk.Model;
+
 import java.util.ArrayList;
 import tubes_sisforegistmk.Database.*;
+
 /**
  *
  * @author desmoncode
  */
 public class Application {
+
     private Database connection;
     private ArrayList<Dosen> daftarDosen = null;
     private ArrayList<Mahasiswa> daftarMahasiswa = null;
     private ArrayList<Kelas> daftarKelas = null;
     private ArrayList<Matakuliah> daftarMatakuliah = null;
-    
+
     public Application() {
         connection = new Database();
         connection.connect();
@@ -25,8 +28,8 @@ public class Application {
         daftarKelas = new ArrayList();
         daftarMatakuliah = new ArrayList();
     }
-    
-     public void addDosen(Dosen d) {
+
+    public void addDosen(Dosen d) {
         daftarDosen.add(d);
     }
 
@@ -73,20 +76,20 @@ public class Application {
     public void deleteMatakuliah(int id) {
         daftarMatakuliah.remove(id);
     }
-    
-    public void createDosen(long nik, String kk, String status, String name, String jenisKelamin, String alamat, String telepon){
+
+    public void createDosen(long nik, String kk, String status, String name, String jenisKelamin, String alamat, String telepon) {
         Dosen d = new Dosen(nik, kk, status, name, jenisKelamin, alamat, telepon);
         addDosen(d);
         connection.insert_orang_dosen(d);
     }
-    
-    public void updateDosen(Dosen d, long nik){
-        int no=0;
-        int non=0;
-         for (Dosen list1 : daftarDosen) {
-             no++;
+
+    public void updateDosen(Dosen d, long nik) {
+        int no = 0;
+        int non = 0;
+        for (Dosen list1 : daftarDosen) {
+            no++;
             if (list1.getNik() == nik) {
-                non=no;
+                non = no;
             }
         }
         daftarDosen.get(non).setAlamat(d.getAlamat());
@@ -95,21 +98,82 @@ public class Application {
         daftarDosen.get(non).setStatus(d.getStatus());
         daftarDosen.get(non).setTelepon(d.getTelepon());
         daftarDosen.get(non).setJenisKelamin(d.getJenisKelamin());
-        daftarDosen.get(non).setName(d.getName()); 
+        daftarDosen.get(non).setName(d.getName());
         connection.update_orang_dosen(d);
     }
-    
-    public ArrayList<Dosen> getDaftarDosen(){
+
+    public ArrayList<Dosen> getDaftarDosen() {
         return connection.getAllDosen();
     }
-    
-    public Dosen getDosen(long nik){
-        for(Dosen d : daftarDosen){
-            if(d.getNik()==nik){
+
+    public Dosen getDosen(long nik) {
+        for (Dosen d : daftarDosen) {
+            if (d.getNik() == nik) {
                 return d;
             }
         }
         Dosen d = connection.getDosen(nik);
         return d;
+    }
+
+    public void deleteDosen(Dosen d) {
+        int no = 0;
+        int non = 0;
+        for (Dosen list1 : daftarDosen) {
+            no++;
+            if (list1 == d) {
+                non = no;
+            }
+        }
+        deleteDosen(non);
+        connection.deleteDosen(d);
+    }
+    
+    public void createMatakuliah(String kode, String nama, int sks) {
+        Matakuliah m = new Matakuliah(kode, nama, sks);
+        addMatakuliah(m);
+        connection.insert_matakuliah(m);
+    }
+
+    public void updateMatakuliah(Matakuliah m, String kode) {
+        int no = 0;
+        int non = 0;
+        for (Matakuliah list1 : daftarMatakuliah) {
+            no++;
+            if (list1.getKode() == kode) {
+                non = no;
+            }
+        }
+        daftarMatakuliah.get(non).setKode(m.getKode());
+        daftarMatakuliah.get(non).setNamaMatkul(m.getNamaMatkul());
+        daftarMatakuliah.get(non).setSks(m.getSks());
+        connection.update_matakuliah(m);
+    }
+
+    public ArrayList<Matakuliah> getDaftarMatakuliah() {
+        return connection.getAllMatakuliah();
+    }
+
+    public Matakuliah getMatakuliah(String kode) {
+        for (Matakuliah m : daftarMatakuliah) {
+            if (m.getKode() == kode) {
+                return m;
+            }
+        }
+        Matakuliah m = connection.getMatakuliah(kode);
+        return m;
+    }
+
+    public void deleteMatakuliah(Matakuliah m) {
+        int no = 0;
+        int non = 0;
+        for (Matakuliah list1 : daftarMatakuliah) {
+            no++;
+            if (list1 == m) {
+                non = no;
+            }
+        }
+        deleteMatakuliah(non);
+        connection.deleteMatakuliah(m);
     }
 }

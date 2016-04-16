@@ -43,14 +43,14 @@ public class ControllerAdmin implements ActionListener{
             
         }
         else if(obj.equals(view.getjButtonKeluar())){
+            new ControllerLogin();
             view.dispose();
-            ControllerLogin cl = new ControllerLogin();
         }
         else if(obj.equals(view.getjButtonMahasiswa())){
             
         }
         else if(obj.equals(view.getjButtonMatakuliah())){
-            
+            new ControllerAdminMatakuliah(view.getjLabelWelcome().getText(),model);
         }
         
     }
