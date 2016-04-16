@@ -8,8 +8,11 @@ package tubes_sisforegistmk.Controller;
 import tubes_sisforegistmk.View.AdminKelolaDosen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import tubes_sisforegistmk.Model.Application;
+import tubes_sisforegistmk.Model.Dosen;
 import tubes_sisforegistmk.View.*;
 
 /**
@@ -20,6 +23,8 @@ public class ControllerAdminDosen implements ActionListener{
     private Application model;
     private AdminKelolaDosen view;
     String name;
+    ArrayList<Dosen> daftarDosen = null;
+    
     public ControllerAdminDosen(String nama,Application model) {
         this.model = model;
         view = new AdminKelolaDosen();
@@ -27,6 +32,15 @@ public class ControllerAdminDosen implements ActionListener{
         view.addActionListener(this);
         this.name = nama;
         view.setTitle("Kelola Dosen");
+        this.daftarDosen = model.getDaftarDosen();
+        DefaultTableModel tmodel = (DefaultTableModel) view.getjTableDosen().getModel();
+        for(Dosen d : daftarDosen){
+            Object[] row = {d.getNik(),d.getName(),d.getKk(),d.getStatus(),d.getAlamat(),d.getJenisKelamin(),d.getTelepon(),d.getId()};
+            tmodel.addRow(row);
+        }
+        
+        
+        
     }
     public ControllerAdminDosen(Application model) {
         this.model = model;
@@ -34,7 +48,12 @@ public class ControllerAdminDosen implements ActionListener{
         view.setVisible(true);
         view.addActionListener(this);
         view.setTitle("Kelola Dosen");
-        DefaultTableModel
+        this.daftarDosen = model.getDaftarDosen();
+        DefaultTableModel tmodel = (DefaultTableModel) view.getjTableDosen().getModel();
+        for(Dosen d : daftarDosen){
+            Object[] row = {d.getNik(),d.getName(),d.getKk(),d.getStatus(),d.getAlamat(),d.getJenisKelamin(),d.getTelepon(),d.getId()};
+            tmodel.addRow(row);
+        }
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -47,7 +66,12 @@ public class ControllerAdminDosen implements ActionListener{
             
         }
         else if(obj.equals(view.getjButtonUpdate())){
-            
+            long nik;
+            Object nikk = new Object();
+            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Dosen", "Update",JOptionPane.QUESTION_MESSAGE);
+            nik = Long.parseLong(nika);
+            Dosen d = model.getDosen(nik);
+            new ControllerAdminDosenCreate(model,d);
         }
         else if(obj.equals(view.getjTextFieldCari())){
             

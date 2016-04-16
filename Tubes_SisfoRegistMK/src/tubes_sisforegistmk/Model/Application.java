@@ -99,4 +99,17 @@ public class Application {
         connection.update_orang_dosen(d);
     }
     
+    public ArrayList<Dosen> getDaftarDosen(){
+        return connection.getAllDosen();
+    }
+    
+    public Dosen getDosen(long nik){
+        for(Dosen d : daftarDosen){
+            if(d.getNik()==nik){
+                return d;
+            }
+        }
+        Dosen d = connection.getDosen(nik);
+        return d;
+    }
 }

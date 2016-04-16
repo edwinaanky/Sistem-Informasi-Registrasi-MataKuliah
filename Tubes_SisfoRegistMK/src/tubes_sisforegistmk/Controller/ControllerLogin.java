@@ -18,14 +18,14 @@ import tubes_sisforegistmk.View.*;
  * @author desmoncode
  */
 public class ControllerLogin implements ActionListener {
+
     private Application model;
     Login l = new Login();
     Database db = null;
     Admin admin = null;
     Mahasiswa mahasiswa = null;
-    
-//    DashboardMahasiswa dm = null;
 
+//    DashboardMahasiswa dm = null;
     public ControllerLogin() {
         l.setVisible(true);
         l.addActionListener(this);
@@ -48,31 +48,26 @@ public class ControllerLogin implements ActionListener {
                 l.gettPassword().requestFocus();
             } else {
 
-                
                 admin = db.autha(l.gettUsername().getText(), l.gettPassword().getText());
                 mahasiswa = db.authm(l.gettUsername().getText(), l.gettPassword().getText());
                 if (mahasiswa == null && admin != null) {
-                    
-                    
-                    JOptionPane.showMessageDialog(l, "Selamat Datang Administrator"+admin.getName(), "Admin", JOptionPane.INFORMATION_MESSAGE);
+//                    System.out.println(db.getAllDosen().get(0).getNik());
+                    JOptionPane.showMessageDialog(l, "Selamat Datang Administrator" + admin.getName(), "Admin", JOptionPane.INFORMATION_MESSAGE);
                     ControllerAdmin ca = new ControllerAdmin(admin.getName());
                     l.dispose();
-                    
-                    
+
                 } else if (admin == null && mahasiswa != null) {
 //                    dm = new DashboardMahasiswa();
 //                    JOptionPane.showMessageDialog(dm, "Selamat Datang "+admin.getName(), "Mahasiswa", JOptionPane.INFORMATION_MESSAGE);
 //                    dm.setVisible(true);
-                    
+
                     l.dispose();
-                    
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Username atau Password salah", "Salah", JOptionPane.INFORMATION_MESSAGE);
                     l.gettUsername().requestFocus();
-                    
-                }
-//            
+
+                }           
             }
         } else if (obj.equals(l.getjButtonCancel())) {
             l.gettUsername().setText("");

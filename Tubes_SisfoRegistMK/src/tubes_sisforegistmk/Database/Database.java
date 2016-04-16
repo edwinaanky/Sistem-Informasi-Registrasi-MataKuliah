@@ -6,6 +6,8 @@
 package tubes_sisforegistmk.Database;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tubes_sisforegistmk.Model.*;
 /**
  *
@@ -104,11 +106,7 @@ public class Database {
                 +"'"+ds.getJenisKelamin()+"',"
                 +"'"+ds.getAlamat()+"',"
                 +"'"+ds.getTelepon()+"')";
-        String query2 = "insert into dosen values("
-                +ds.getNik()+","
-                +"'"+ds.getKk()+"',"
-                +"'"+ds.getStatus()+"',"
-                +ds.getId()+")";
+        String query2 = null;
         try {
             statement.execute(query1,Statement.RETURN_GENERATED_KEYS);
             rs = statement.getGeneratedKeys();
@@ -117,7 +115,12 @@ public class Database {
                 generatedId = rs.getInt(1);
             }
             ds.setId(generatedId);
-            statement.executeQuery(query2);
+            query2 = "insert into dosen values("
+                +ds.getNik()+","
+                +"'"+ds.getKk()+"',"
+                +"'"+ds.getStatus()+"',"
+                +ds.getId()+")";
+            statement.execute(query2);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -161,5 +164,24 @@ public class Database {
             e.printStackTrace();
         }
         return daftarDosen;
+    }
+    
+    public Dosen getDosen(long nik){
+        Dosen d = null;
+        ResultSet rs = null;
+        String query = "select d.nik,d.kk,d.status,o.nama,o.jeniskelamin,o.alamat,o.telepon,o.id "
+                + "from orang as o, dosen as d "
+                + "where o.id=d.id_orang and "
+                + "nik="+nik;
+        try {
+            rs=statement.executeQuery(query);
+            while(rs.next()){
+                d = new Dosen(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+                d.setId(rs.getInt(8));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return d;
     }
 }
