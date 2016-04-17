@@ -1,8 +1,7 @@
 <h3>Untuk dapat menjalankan Program</h3>
 <br>
 <br>
-1. Silahkan Buat database bernama db_registrasi (bertipe mySQL) 
-dengan xampp, setelah itu lakukan import db_registrasi.sql.zip pada database menggunakan phpmyadmin.
+1. Silahkan Buat database bernama db_registrasi dengan xampp(phpmyadmin), setelah itu lakukan import db_registrasi.sql.zip pada database menggunakan phpmyadmin.
 <br>
 2. Jalankan driver class bernama main.java
 <br>
