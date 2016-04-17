@@ -65,12 +65,14 @@ public class ControllerAdminMatakuliah implements ActionListener {
             String nika = JOptionPane.showInputDialog(view, "Masukkan kode Matakuliah", "Update", JOptionPane.QUESTION_MESSAGE);
             
             Matakuliah m = model.getMatakuliah(nika);
-            if (!m.equals(null)) {
+            if (m!=null) {
                 int pil = JOptionPane.showConfirmDialog(view, "Apakah yakin untuk menghapus ?", "Confirm delete", JOptionPane.YES_NO_OPTION);
                 if (pil == 0) {
                     model.deleteMatakuliah(m);
                     JOptionPane.showMessageDialog(view, "Berhasil Dihapus", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }else{
+                JOptionPane.showMessageDialog(view, "Kode Matakuliah tidak ditemukan","Error",JOptionPane.ERROR_MESSAGE);
             }
         } else if (obj.equals(view.getjButtonUpdate())) {
             long nik;

@@ -82,6 +82,8 @@ public class ControllerAdminKelasCreate implements ActionListener{
                     JOptionPane.showMessageDialog(view, "Data Kelas berhasil diinputkan");
                     view.getjTextFieldNama().setText("");
                     view.getjTextFieldMaxmhs().setText("");
+                    new ControllerAdminKelas(model);
+                    view.dispose();
                 } else {
                     for(Dosen d : model.getDaftarDosen()){
                         if(d.getName().equals(view.getjComboBoxDosen().getSelectedItem().toString())){

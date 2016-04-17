@@ -65,20 +65,27 @@ public class ControllerAdminMahasiswa implements ActionListener {
             String nika = JOptionPane.showInputDialog(view, "Masukkan nik Mahasiswa", "Update", JOptionPane.QUESTION_MESSAGE);
             long nik = Long.parseLong(nika);
             Mahasiswa d = model.getMahasiswa(nik);
-            if (!d.equals(null)) {
+            if (d!=null) {
                 int pil = JOptionPane.showConfirmDialog(view, "Apakah yakin untuk menghapus ?", "Confirm delete", JOptionPane.YES_NO_OPTION);
                 if (pil == 0) {
                     model.deleteMahasiswa(d);
                     JOptionPane.showMessageDialog(view, "Berhasil Dihapus", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }else{
+                JOptionPane.showMessageDialog(view, "NIM tidak ditemukan","Error",JOptionPane.ERROR_MESSAGE);
             }
         } else if (obj.equals(view.getjButtonUpdate())) {
             long nik;
             
-            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Mahasiswa", "Update", JOptionPane.QUESTION_MESSAGE);
+            String nika = JOptionPane.showInputDialog(view, "Masukkan nim Mahasiswa", "Update", JOptionPane.QUESTION_MESSAGE);
             nik = Long.parseLong(nika);
             Mahasiswa d = model.getMahasiswa(nik);
-            new ControllerAdminMahasiswaCreate(model, d);
+            if(d!=null){
+                new ControllerAdminMahasiswaCreate(model, d);
+                view.dispose();
+            }else{
+                JOptionPane.showMessageDialog(view, "NIM tidak ditemukan","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }  else if (obj.equals(view.getjButtonHome())) {
             view.dispose();
             

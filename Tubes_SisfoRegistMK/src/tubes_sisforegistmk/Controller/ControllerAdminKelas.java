@@ -63,21 +63,28 @@ public class ControllerAdminKelas implements ActionListener{
             String nika = JOptionPane.showInputDialog(view, "Masukkan id Kelas", "Update",JOptionPane.QUESTION_MESSAGE);
             long nik = Long.parseLong(nika);
             Kelas k = model.getKelasByid(Integer.parseInt(nika));
-            if(!k.equals(null)){
+            if(k!=null){
                 int pil=JOptionPane.showConfirmDialog(view, "Apakah yakin untuk menghapus ?", "Confirm delete", JOptionPane.YES_NO_OPTION);
                 if(pil==0){
                     model.deleteKelas(k);
                     JOptionPane.showMessageDialog(view, "Berhasil Dihapus","Success",JOptionPane.INFORMATION_MESSAGE);
                 }
+            }else{
+                JOptionPane.showMessageDialog(view, "Id kelas tidak ditemukan","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         else if(obj.equals(view.getjButtonUpdate())){
             long nik;
             Object nikk = new Object();
-            String nika = JOptionPane.showInputDialog(view, "Masukkan nik Dosen", "Update",JOptionPane.QUESTION_MESSAGE);
+            String nika = JOptionPane.showInputDialog(view, "Masukkan Id kelas", "Update",JOptionPane.QUESTION_MESSAGE);
             nik = Long.parseLong(nika);
             Kelas k = model.getKelasByid(Integer.parseInt(nika));
-            new ControllerAdminKelasCreate(model,k);
+            if (k!=null){
+                new ControllerAdminKelasCreate(model,k);
+                view.dispose();
+            }else{
+                JOptionPane.showMessageDialog(view, "Id kelas tidak ditemukan","Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         
         else if(obj.equals(view.getjButtonHome())){

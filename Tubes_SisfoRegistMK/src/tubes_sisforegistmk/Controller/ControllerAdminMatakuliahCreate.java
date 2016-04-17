@@ -54,21 +54,28 @@ public class ControllerAdminMatakuliahCreate implements ActionListener {
             } else {
 
                 if (m == null) {
-                    model.createMatakuliah(view.getjTextFieldKode().getText(), view.getjTextFieldNama().getText(), Integer.parseInt(view.getjTextFieldSks().getText()));
-                    JOptionPane.showMessageDialog(view, "Data dosen berhasil diinputkan");
-                    view.getjTextFieldKode().setText("");
-                    view.getjTextFieldNama().setText("");
-                    view.getjTextFieldSks().setText("");
+                    if(model.getMatakuliah(view.getjTextFieldKode().getText())==null){
+                        model.createMatakuliah(view.getjTextFieldKode().getText(), view.getjTextFieldNama().getText(), Integer.parseInt(view.getjTextFieldSks().getText()));
+                        JOptionPane.showMessageDialog(view, "Data Matakuliah berhasil diinputkan");
+                        view.getjTextFieldKode().setText("");
+                        view.getjTextFieldNama().setText("");
+                        view.getjTextFieldSks().setText("");
+                        new ControllerAdminMatakuliah(model);
+                        view.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(view, "Kode sudah ada","Error",JOptionPane.ERROR_MESSAGE);
+                    }
 
                 } else {
                     m.setKode(view.getjTextFieldKode().getText());
                     m.setNamaMatkul(view.getjTextFieldNama().getText());
                     m.setSks(Integer.parseInt(view.getjTextFieldSks().getText()));
                     model.updateMatakuliah(m, view.getjTextFieldKode().getText());
-                    JOptionPane.showMessageDialog(view, "Data dosen berhasil diupdate");
+                    JOptionPane.showMessageDialog(view, "Data Matakuliah berhasil diupdate");
                     view.getjTextFieldKode().setText("");
                     view.getjTextFieldNama().setText("");
                     view.getjTextFieldSks().setText("");
+                    new ControllerAdminMatakuliah(model);
                     view.dispose();
                 }
 //                d = new Matakuliah(nikk,view.getjComboBoxKK().getSelectedItem().toString(),status,view.getjTextFieldNama().getText(),jk,view.getjTextAreaAlamat().getText(),view.getjTextFieldTelepon().getText());

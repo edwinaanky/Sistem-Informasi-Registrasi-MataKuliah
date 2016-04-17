@@ -90,7 +90,7 @@ public class AdminKelolaMahasiswaCreate extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(jRadioButtonPria);
-        jRadioButtonPria.setText("Pira");
+        jRadioButtonPria.setText("Pria");
 
         buttonGroup1.add(jRadioButtonWanita);
         jRadioButtonWanita.setText("Wanita");
